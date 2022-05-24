@@ -1,0 +1,9 @@
+{
+  "eslintIntegration": true,
+  "singleQuote": true,
+  "semi": false,
+  "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "arrowParens": "avoid",
+  "endOfLine": "auto"
+ }

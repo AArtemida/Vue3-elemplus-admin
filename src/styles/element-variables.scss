@@ -1,0 +1,42 @@
+@use 'sass:math';
+@use 'sass:map';
+
+$--colors: (
+  'primary': (
+    'base': #968EC9,
+  ),
+  'success': (
+    'base': #21ba45,
+  ),
+  'warning': (
+    'base': #f2711c,
+  ),
+  'danger': (
+    'base': #db2828,
+  ),
+  'error': (
+    'base': #db2828,
+  ),
+  'info': (
+    'base': #42b8dd,
+  ),
+);
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: $--colors,
+  $menu: (
+    'bg-color': 'transparent',
+    'text-color': 'rgba(255,255,255,.8)',
+    'hover-text-color': '#fff',
+    'hover-bg-color': 'transparent',
+    'active-color': '#fff'
+  )
+);
+
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;
