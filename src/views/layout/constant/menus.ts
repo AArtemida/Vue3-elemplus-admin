@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:22:50
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 11:36:26
+ * @LastEditTime: 2022-05-24 16:31:16
  */
 export default [
   {
@@ -23,10 +23,15 @@ export default [
   {
     name: '列表',
     route: '/list',
-    icon: 'icon-gongzuotai'
+    icon: 'icon-caidan'
   },
   {
-    name: '主题色',
+    name: '管理',
+    route: '/manage',
+    icon: 'icon-jiaosequanxian'
+  },
+  {
+    name: '主题',
     route: '/theme',
     icon: 'icon-zhuti',
   },

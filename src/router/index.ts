@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 14:50:51
+ * @LastEditTime: 2022-05-25 14:22:59
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
@@ -54,14 +54,6 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('@/views/permission/Page.vue'),
           },
           {
-            path: '/permission/user',
-            name: 'userPermission',
-            meta: {
-              title: '用户权限',
-            },
-            component: () => import('@/views/permission/User.vue'),
-          },
-          {
             path: '/permission/button',
             name: 'buttonPermission',
             meta: {
@@ -75,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/theme',
         name: 'theme',
         meta: {
-          title: '主题色',
+          title: '主题',
         },
         component: () => import('@/views/theme/index.vue'),
       },
@@ -94,6 +86,14 @@ const routes: Array<RouteRecordRaw> = [
           title: '列表',
         },
         component: () => import('@/views/list/index.vue'),
+      },
+      {
+        path: '/manage',
+        name: 'manage',
+        meta: {
+          title: '用户管理',
+        },
+        component: () => import('@/views/manage/User.vue'),
       },
     ],
   },

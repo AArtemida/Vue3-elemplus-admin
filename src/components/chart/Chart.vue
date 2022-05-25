@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-23 09:47:47
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 10:34:05
+ * @LastEditTime: 2022-05-25 14:21:34
 -->
 <template>
   <div>
@@ -58,5 +58,5 @@ const chart = new ChartDrawer({
   custom: props.custom
 })
 chart.initChart()
-let option: any = reactive(chart.chartOptions)
+let option: object = reactive(chart.chartOptions)
 </script>

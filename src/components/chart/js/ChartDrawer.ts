@@ -2,7 +2,7 @@ interface ChartInfo {
   // dom: string
   chartType: string
   chartData: Array<any>
-  custom: any
+  custom: object
 }
 
 interface ChartData {

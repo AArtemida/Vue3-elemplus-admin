@@ -3,11 +3,13 @@
  * @Author: hy
  * @Date: 2022-05-20 15:33:57
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 15:42:31
+ * @LastEditTime: 2022-05-25 10:27:53
 -->
 <template>
   <el-aside width="200px">
-    <h2 class="layout-title">ElementAdmin</h2>
+    <h2 class="layout-title">
+      ElementAdmin
+    </h2>
     <el-menu
       :router="true"
       :default-active="activeIndex"
@@ -83,5 +85,6 @@ watch(
 }
 .layout-title {
   color: $white;
+  margin: 20px auto;
 }
 </style>
