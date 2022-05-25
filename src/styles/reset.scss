@@ -1,0 +1,57 @@
+/* normalize */
+html,
+body {
+  margin: 0;
+}
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC,
+    Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+  font-size: 14px;
+}
+input:focus {
+  outline: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  &[href]:hover {
+    color: $primary;
+  }
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+textarea {
+  resize: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}

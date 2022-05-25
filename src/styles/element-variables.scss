@@ -30,7 +30,15 @@ $--colors: (
     'hover-text-color': '#fff',
     'hover-bg-color': 'transparent',
     'active-color': '#fff'
-  )
+  ),
+  $table: (
+    'header-bg-color': '#F8F9FB',
+  ),
+  $table-padding: (
+    'large': 20px 0,
+    'default': 15px 0,
+    'small': 5px 0,
+  ),
 );
 
 // if you want to import all

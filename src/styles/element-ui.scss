@@ -1,0 +1,21 @@
+/* element-ui */
+.el-card {
+  display: flex;
+  flex-direction: column;
+  .el-card__header {
+    padding: 10px 20px;
+    text-align: left;
+    color: $fontColor8;
+  }
+  .el-card__body {
+    flex: 1 auto;
+    padding: 5px 10px;
+  }
+}
+
+.el-menu-item.is-active {
+  background: $primary;
+  &:hover {
+    background: $primary !important;
+  }
+}
