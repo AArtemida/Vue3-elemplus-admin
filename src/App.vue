@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-20 10:38:54
+ * @LastEditTime: 2022-05-25 15:30:29
 -->
 <template>
   <router-view/>
@@ -23,9 +23,6 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  .add{
-    background: lightblue;
-  }
+  color: var(--color-font-regular);
 }
 </style>

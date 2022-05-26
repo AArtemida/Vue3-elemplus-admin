@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-20 15:40:05
+ * @LastEditTime: 2022-05-25 15:28:49
 -->
 <template>
   <el-container class="layout">
@@ -24,14 +24,14 @@ import Header from './components/Header.vue'
 
 <style lang="scss" scoped>
 .el-aside {
-  background: $menuBg;
+  background: var(--color-menu-bg);
 }
 .layout {
   height: 100vh;
-  background: #f6f6f6;
+  background: var(--color-content-bg);
 }
 .el-header {
-  background: $white;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 </style>

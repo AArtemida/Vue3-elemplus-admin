@@ -3,10 +3,10 @@
  * @Author: hy
  * @Date: 2022-05-20 14:47:25
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 11:47:57
+ * @LastEditTime: 2022-05-26 09:57:38
 -->
 <template>
-  <el-radio-group v-model="selectTheme">
+  <el-radio-group v-model="selectTheme" @change="changeTheme">
     <div
       class="theme-radio"
       v-for="(theme, index) in themeList"
@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-const selectTheme = ref('default')
+const selectTheme = ref<string>('default')
 const themeList = [
   {
     name: '默认',
@@ -37,11 +37,16 @@ const themeList = [
     type: 'dark',
   },
 ]
+
+const changeTheme = (type: string): void => {
+  selectTheme.value = type
+  document.body.setAttribute('data-theme', type)
+}
 </script>
 
 <style lang="scss" scoped>
 .theme-radio {
-  background: $white;
+  background: var(--color-card-bg);
   margin: 10px 20px;
   border-radius: 5px;
   .theme-color {
@@ -49,12 +54,12 @@ const themeList = [
     height: 60px;
     border-radius: 5px;
     margin: 5px 20px 20px 20px;
-    background: $primary;
+    background: var(--color-purple);
     &.theme-color-blue {
-      background: $blue;
+      background: var(--color-blue);
     }
     &.theme-color-dark {
-      background: $menuBg;
+      background: var(--color-black);
     }
   }
 }

@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:45
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 11:06:07
+ * @LastEditTime: 2022-05-26 10:22:50
 -->
 <template>
   <section class="board-top">
@@ -63,7 +63,6 @@ const topCardList = [
       showAxisLine: false,
       showCategoryAxisLabel: false,
       showValueAxisLabel: false,
-      color: ['#e0c3fc']
     },
   },
   {
@@ -96,7 +95,6 @@ const topCardList = [
       showAxisLine: false,
       showCategoryAxisLabel: false,
       showValueAxisLabel: false,
-      color: ['#e0c3fc']
     },
   },
 ]
@@ -118,7 +116,7 @@ const topCardList = [
     align-items: center;
     justify-content: space-between;
     > b {
-      color: $fontColor3;
+      color: var(--color-font-regular);
       font-size: 20px;
     }
   }

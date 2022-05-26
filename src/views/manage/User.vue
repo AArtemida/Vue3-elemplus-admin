@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-24 14:47:53
  * @LastEditors: hy
- * @LastEditTime: 2022-05-25 14:25:14
+ * @LastEditTime: 2022-05-25 15:57:50
 -->
 <template>
   <!-- 顶部搜索 -->
@@ -123,7 +123,7 @@ const handleSelectionChange = function () {}
 
 <style lang="scss" scoped>
 .user-content {
-  background: $white;
+  background: var(--color-card-bg);
   padding: 20px;
   .pagination {
     margin: 12px auto 0 auto;
@@ -141,7 +141,7 @@ const handleSelectionChange = function () {}
 .el-table {
   .icon-renzhengyonghu {
     margin-right: 10px;
-    color: $blue;
+    color: var(--color-blue);
   }
   .name-txt {
     font-weight: 700;

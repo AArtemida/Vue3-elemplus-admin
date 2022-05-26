@@ -16,6 +16,8 @@ class ChartDrawer {
   chartData: Array<any>
   custom: any
   colorList: Array<string>
+  xAxisTextColor: string
+  textColor: string
   chartOptions: any
   nodata: boolean
   myChart: any
@@ -25,7 +27,8 @@ class ChartDrawer {
     this.custom = params.custom || {}
     // this.dom = params.dom || ''
     this.colorList = ['#968EC9', '#66608F', '#C8C3F3', '#B788BF', '#E2D5E6', '#B1DAE9', '#515352']
-    //['#3aa1ff', '#5cbd91', '#ffbf63', '#5683f5']
+    this.xAxisTextColor = '#888'
+    this.textColor = '#333'
     this.chartOptions = {}
     this.nodata = false
   }
@@ -33,8 +36,22 @@ class ChartDrawer {
   //   let option = this.getEchartsOption()
   //   this.myChart = echarts.init(this.dom)
   //   this.myChart.setOption(option)
+    this.changeColor()
     this.getEchartsOption()
   }
+
+  changeColor() {
+    let body = document.body
+    let theme = document.body.getAttribute('data-theme') || 'default'
+    switch(theme) {
+      case 'blue':
+        this.colorList = ['#3aa1ff', '#5cbd91', '#ffbf63', '#5683f5', '#515352']
+      case 'dark':
+        this.xAxisTextColor = '#bbb'
+        this.textColor = '#eee'
+    }
+  }
+
   getEchartsOption() {
     let data = this.chartData,
       type = this.chartType || 'bar',
@@ -128,7 +145,7 @@ class ChartDrawer {
         return val.name
       })
     // 坐标轴文字颜色
-    let xAxisColor = custom.xAxisColor || '#888'
+    let xAxisColor = custom.xAxisColor || this.xAxisTextColor
     let axisStyle = {
       minInterval: 1,
       nameGap: 6,
@@ -284,7 +301,7 @@ class ChartDrawer {
       label: {
         normal: {
           textStyle: {
-            color: '#333',
+            color: this.textColor,
             fontSize: 14,
           },
           // formatter: '{b}'
@@ -363,7 +380,7 @@ class ChartDrawer {
         },
         emphasis: {
           shadowBlur: 10,
-          shadowColor: '#888',
+          shadowColor: this.xAxisTextColor,
         },
       },
     ]

@@ -74,7 +74,7 @@ function changeInputStatus() {
 .header-left {
   cursor: pointer;
   &:hover {
-    color: $primary;
+    color: var(--color-primary);
   }
 }
 .header-right {
@@ -85,10 +85,10 @@ function changeInputStatus() {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  background: $primary;
+  background: var(--color-primary);
   margin-right: 10px;
   text-align: center;
-  color: $white;
+  color: var(--color-white);
   .iconfont {
     font-size: 18px;
     line-height: 28px;
@@ -109,7 +109,7 @@ function changeInputStatus() {
     cursor: pointer;
     transition: display 0.3s ease 0.3s;
     &:hover {
-      color: $primary;
+      color: var(--color-primary);
     }
   }
   .el-input {
@@ -135,8 +135,8 @@ function changeInputStatus() {
       cursor: pointer;
       border-radius: 5px;
       &:hover {
-        color: $primary;
-        background: rgba($primary, 0.1);
+        color: var(--color-primary);
+        background: rgba(var(--color-primary), 0.1);
       }
     }
   }

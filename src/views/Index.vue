@@ -22,6 +22,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .index {
-  color: $primary;
+  color: var(--color-primary);
 }
 </style>

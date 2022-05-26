@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:56
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 09:58:04
+ * @LastEditTime: 2022-05-26 10:25:06
 -->
 <template>
   <section class="board-bottom">
@@ -36,9 +36,7 @@ const bottomCardList = [
       { value: 135, name: 'Video Ads' },
       { value: 1548, name: 'Search Engines' },
     ],
-    custom: {
-      showAxisLine: false,
-    },
+    custom: {},
   },
   {
     name: '类别占比',
@@ -51,7 +49,6 @@ const bottomCardList = [
       { value: 1548, name: 'Search Engines' },
     ],
     custom: {
-      showAxisLine: false,
       showRingPie: true,
     },
   },

@@ -1,18 +1,112 @@
-$primary: #968EC9;
-$blue: #458dff;
-$lightColor: #fec10e;
+@use 'sass:math';
+@use 'sass:map';
 
-$white: #fff;
-$fontColor0: #000;
-$fontColor1: #111;
-$fontColor3: #333;
-$fontColor5: #555;
-$fontColor6: #666;
-$fontColor8: #888;
-$fontColor9: #999;
-$fontColorc: #ccc;
-$fontColorb: #bbb;
-$fontColore: #eee;
-$fontColord: #ddd;
+:root {
+  --color-primary: #968EC9;
+  --color-white:#fff;
+  --color-black: #151A30;
+  --color-purple: #968EC9;
+  --color-border: #e5e7eb;
+  --color-blue: #458dff;
+  --color-yellow: #fec10e;
+  --color-menu-bg: #001529;
+  --color-font-regular: #333;
+  --color-font-title: #000;
+  --color-font-light: #ddd;
+  --color-font-regular2: #666;
+  --color-font-subtitle: #888;
+  --color-content-bg: #f6f6f6;
+  --color-card-bg: var(--color-white);
+  --color-header-bg: var(--color-white);
+  --color-table-header: #F8F9FB;
+}
 
-$menuBg: #001529;
+[data-theme="dark"] {
+  --color-primary: #968EC9;
+  --color-white:#fff;
+  --color-black: #151A30;
+  --color-purple: #968EC9;
+  --color-border: #101426;
+  --color-blue: #458dff;
+  --color-yellow: #fec10e;
+  --color-menu-bg: #222B45;
+  --color-font-regular: #eee;
+  --color-font-title: #fff;
+  --color-font-light: #ddd;
+  --color-font-regular2: #8f9bb3;
+  --color-font-subtitle: var(--color-font-regular2);
+  --color-content-bg: var(--color-black);
+  --color-card-bg: #222B45;
+  --color-header-bg: var(--color-card-bg);
+  --color-table-header: var(--color-black);
+}
+
+[data-theme="blue"] {
+  --color-primary: #458dff;
+  --color-white:#fff;
+  --color-black: #151A30;
+  --color-purple: #968EC9;
+  --color-border: #e5e7eb;
+  --color-blue: #458dff;
+  --color-yellow: #fec10e;
+  --color-menu-bg: #001529;
+  --color-font-regular: #333;
+  --color-font-title: #000;
+  --color-font-light: #ddd;
+  --color-font-regular2: #666;
+  --color-font-subtitle: #888;
+  --color-content-bg: #f6f6f6;
+  --color-card-bg: var(--color-white);
+  --color-header-bg: var(--color-white);
+  --color-table-header: #F8F9FB;
+}
+
+/*element ui*/
+$types: primary;
+$color-white: #fff;
+$color-black: #000;
+
+@mixin set-var-mix-level(
+  $type,
+  $number,
+  $mode: 'light',
+  $mix-color: $color-white,
+  $color
+) {
+  $c: mix(
+    $mix-color,
+    $color,
+    math.percentage(math.div($number, 10))
+  );
+  --el-color-#{$type}-#{$mode}-#{$number}: #{$c};
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --el-fill-color-blank: var(--color-card-bg);
+  --el-border: 1px solid var(--color-font-subtitle);
+  --el-border-color: var(--color-border);
+  --el-text-color-regular: var(--color-font-regular);
+  --el-border-color-light: var(--color-border);
+  --el-text-color-primary: var(--color-font-regular);
+  --el-fill-color-light: var(--color-black);
+  --el-fill-color-lighter: var(--color-card-bg);
+  --el-border-color-lighter: var(--color-border);
+  --el-disabled-bg-color: var(--color-black);
+  --el-fill-color: var(--color-black);
+  --el-bg-color-overlay: var(--color-black);
+}
+
+[data-theme="blue"] {
+  --el-color-primary: var(--color-primary);
+
+  @each $type in $types {
+    @for $i from 1 through 9 {
+      @include set-var-mix-level($type, $i, 'light', $color-white, #458dff);
+    }
+  }
+  // --el-color-primary-dark-2
+  @each $type in $types {
+    @include set-var-mix-level($type, 2, 'dark', $color-black, #458dff);
+  }
+}

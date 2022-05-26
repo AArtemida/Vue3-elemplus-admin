@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:50
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 11:04:51
+ * @LastEditTime: 2022-05-25 18:11:25
 -->
 <template>
   <el-tabs class="center-card" v-model="activeName" @tab-click="handleClick">
@@ -70,12 +70,16 @@ const getRankRandom = function(index: number) : string {
   let newVal: string = (listLength - index) + value.substring(1)
   return formatNumber(newVal)
 }
+
+function handleClick() {
+
+}
 </script>
 
 <style lang="scss" scoped>
 .center-card {
   height: 320px;
-  background: $white;
+  background: var(--color-card-bg);
   padding: 10px 20px;
   :deep(.el-tabs__content) {
     height: calc(100% - 50px);
@@ -123,8 +127,8 @@ const getRankRandom = function(index: number) : string {
     justify-content: space-between;
     &:nth-child(-n + 3) {
       .li-number {
-        background: $menuBg;
-        color: $white;
+        background: var(--color-black);
+        color: var(--color-white);
       }
     }
   }

@@ -78,13 +78,13 @@ watch(
 
 <style lang="scss" scoped>
 .el-aside {
-  background: $menuBg;
+  background: var(--color-menu-bg);
   .menu-icon {
     margin-right: 8px;
   }
 }
 .layout-title {
-  color: $white;
+  color: var(--color-white);
   margin: 20px auto;
 }
 </style>

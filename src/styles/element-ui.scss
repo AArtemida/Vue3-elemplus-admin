@@ -1,21 +1,32 @@
 /* element-ui */
-.el-card {
-  display: flex;
-  flex-direction: column;
-  .el-card__header {
-    padding: 10px 20px;
-    text-align: left;
-    color: $fontColor8;
+.el-container {
+  .el-card {
+    display: flex;
+    flex-direction: column;
+    .el-card__header {
+      padding: 10px 20px;
+      text-align: left;
+      color: var(--color-font-subtitle);
+    }
+    .el-card__body {
+      flex: 1 auto;
+      padding: 5px 10px;
+    }
   }
-  .el-card__body {
-    flex: 1 auto;
-    padding: 5px 10px;
-  }
-}
 
-.el-menu-item.is-active {
-  background: $primary;
-  &:hover {
-    background: $primary !important;
+  .el-menu {
+    border-right: 0 !important;
+  }
+  .el-menu-item.is-active {
+    background: var(--color-primary);
+    &:hover {
+      background: var(--color-primary) !important;
+    }
+  }
+
+  .el-table {
+    th.el-table__cell {
+      background: var(--color-table-header);
+    }
   }
 }
