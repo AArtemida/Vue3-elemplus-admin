@@ -1,9 +1,10 @@
+import { store } from '@/store';
 /*
  * @Description:
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-25 14:22:59
+ * @LastEditTime: 2022-05-27 15:09:39
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
@@ -25,9 +26,9 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'index',
         meta: {
-          title: '首页',
+          title: '工作台',
         },
-        component: () => import('@/views/Index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
       },
       {
         path: '/dashboard',
@@ -118,7 +119,31 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   let title: any = to.meta.title ? to.meta.title : 'project'
   window.document.title = title
-  next()
+
+  // 登录权限
+  const userSession = sessionStorage.getItem('storeUser')
+  let token = null
+  if(userSession && userSession !== 'null') {
+    const storeUser = JSON.parse(userSession)
+    token = storeUser.token || ''
+  }
+  if(to.path !== '/login' && !token) {
+    // const fullPath = to.fullPath || ''
+    // const path = to.path || ''
+    // let params = ''
+    // if(fullPath && fullPath.includes("?")){
+    //   params = fullPath.replace(path,'').replace("?",'')
+    // }
+    next({
+      path: '/login',
+      // query:{
+      //   redirect: path,
+      //   queryparam: params
+      // }
+    })
+  } else {
+    next()
+  }
 })
 
 router.afterEach((to, from, failure) => {

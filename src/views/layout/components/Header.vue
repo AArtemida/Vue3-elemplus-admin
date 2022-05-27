@@ -3,19 +3,26 @@
  * @Author: hy
  * @Date: 2022-05-20 15:38:30
  * @LastEditors: hy
- * @LastEditTime: 2022-05-23 16:56:50
+ * @LastEditTime: 2022-05-27 14:51:48
 -->
 <template>
   <el-header class="header">
-    <span class="header-left iconfont icon-shouqi"></span>
+    <span class="header-left iconfont icon-shouqi" @click="changeCollapse"></span>
     <!-- 右侧 -->
     <div class="header-right">
       <!-- 搜索框 -->
       <div class="header-search">
-        <i class="iconfont icon-sousuo" @click="changeInputStatus" v-show="!showInput"></i>
-        <el-input v-model="searchWord" :class="{'show-input': showInput}">
+        <i
+          class="iconfont icon-sousuo"
+          @click="changeInputStatus"
+          v-show="!showInput"
+        ></i>
+        <el-input v-model="searchWord" :class="{ 'show-input': showInput }">
           <template #prefix>
-            <i class="el-input__icon iconfont icon-sousuo" @click="changeInputStatus"></i>
+            <i
+              class="el-input__icon iconfont icon-sousuo"
+              @click="changeInputStatus"
+            ></i>
           </template>
         </el-input>
       </div>
@@ -28,8 +35,13 @@
           ></span>
         </template>
         <ul class="header-options">
-          <li v-for="lang in languages" :key="'langauge_' + lang">
-            {{ lang }}
+          <li
+            v-for="(label, lang) in languages"
+            :key="'langauge_' + lang"
+            :class="{select: locale.value === lang}"
+            @click="changeSelectLocale(lang)"
+          >
+            {{ label }}
           </li>
         </ul>
       </el-popover>
@@ -41,13 +53,12 @@
             <div class="user-portrait">
               <i class="iconfont icon-yonghu"></i>
             </div>
-            <span>admin</span>
+            <span v-if="userInfo">{{ userInfo.username }}</span>
           </div>
         </template>
         <ul class="header-options">
           <li>用户中心</li>
-          <li>修改密码</li>
-          <li>退出登录</li>
+          <li @click="logout">退出登录</li>
         </ul>
       </el-popover>
     </div>
@@ -56,13 +67,57 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+
+import { useUserStore } from '@/store/modules/user'
+import { useLocaleStore } from '@/store/modules/locale'
+import { useHeaderStore } from '@/store/modules/header'
+import { storeToRefs } from 'pinia'
+
+// 搜索词
 const searchWord = ref('')
 const showInput = ref(false)
-const languages = ['中文', 'English']
 
 function changeInputStatus() {
   showInput.value = !showInput.value
 }
+
+// 语言
+const localeStore = useLocaleStore()
+const { locale } = storeToRefs(localeStore)
+const languages = localeStore.getLanguages
+// 切换语言
+function changeSelectLocale(lang: string) {
+  localeStore.setLocale(lang)
+}
+
+// 用户
+const userStore = useUserStore()
+const { userInfo } = storeToRefs(userStore)
+
+// 退出登录
+const router = useRouter()
+async function logout() {
+  try {
+    const status = await userStore.logout()
+    if (status) {
+      ElMessage.success('退出成功！')
+      router.push({ name: 'login' })
+    }
+  } catch (error) {
+    ElMessage.error('退出失败，请重新尝试')
+  }
+}
+
+// 收起
+const headerStore = useHeaderStore()
+const { isCollapse } = storeToRefs(headerStore)
+function changeCollapse() {
+  let status: boolean = !isCollapse.value
+  headerStore.setCollapse(status)
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -124,6 +179,7 @@ function changeInputStatus() {
 </style>
 
 <style lang="scss">
+$primary: var(--color-primary);
 .el-popover.user-popover {
   min-width: 50px;
   text-align: center;
@@ -134,9 +190,9 @@ function changeInputStatus() {
       line-height: 30px;
       cursor: pointer;
       border-radius: 5px;
-      &:hover {
+      &:hover, &.select {
         color: var(--color-primary);
-        background: rgba(var(--color-primary), 0.1);
+        background: rgba($primary, 0.5);
       }
     }
   }

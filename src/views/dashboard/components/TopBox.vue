@@ -3,14 +3,17 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:45
  * @LastEditors: hy
- * @LastEditTime: 2022-05-26 10:22:50
+ * @LastEditTime: 2022-05-27 11:34:32
 -->
 <template>
   <section class="board-top">
       <el-card v-for="card in topCardList" :key="'dashTopCard_' + card.name">
         <template #header>
           <div class="card-header">
-            <span>{{ card.name }}</span>
+            <span>
+              <i class="iconfont" :class="card.icon"></i>
+              {{ card.name }}
+            </span>
             <b>{{ formatNumber(card.value) }}</b>
           </div>
         </template>
@@ -35,6 +38,7 @@ import { formatNumber } from '@/utils/format'
 const topCardList = [
   {
     name: '访问量',
+    icon: 'icon-zhuye',
     value: 126560,
     type: 'line',
     data: [
@@ -50,6 +54,7 @@ const topCardList = [
   },
   {
     name: '消息数',
+    icon: 'icon-xiaoxi-xiaoxi',
     value: 8846,
     type: 'line',
     data: [
@@ -67,6 +72,7 @@ const topCardList = [
   },
   {
     name: '销售额',
+    icon: 'icon-jiage',
     value: 6560,
     data: [
       { value: 335, name: 'Direct' },
@@ -83,6 +89,7 @@ const topCardList = [
   },
   {
     name: '购物数',
+    icon: 'icon-gouwuchefill',
     value: '78%',
     data: [
       { value: 335, name: 'Direct' },

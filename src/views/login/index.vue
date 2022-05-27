@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:45:43
  * @LastEditors: hy
- * @LastEditTime: 2022-05-20 10:23:32
+ * @LastEditTime: 2022-05-27 15:09:57
 -->
 <template>
   <div class="login-content">
@@ -43,10 +43,10 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
+import { useUserStore } from '@/store/modules/user'
 import { useRouter } from 'vue-router'
-const router = useRouter()
-
 const loading = ref(false)
 const loginForm = reactive({
   username: 'admin',
@@ -58,24 +58,55 @@ const rules = reactive<FormRules>({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
 })
+// 提交登录
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   loading.value = true
-  await formEl.validate((valid: boolean, fields: string) => {
+  await formEl.validate((valid: boolean, fields) => {
     loading.value = false
     if (valid) {
-      setTimeout(() => {
+      // setTimeout(() => {
         const userInfo = {
           ...loginForm,
         }
-        console.log(userInfo)
-        router.push({ name: 'index' })
-      }, 300)
+      //   console.log(userInfo)
+      //   router.push({ name: 'index' })
+      // }, 300)
+      handleLogin(userInfo)
     } else {
       console.log('error submit!', fields)
     }
   })
 }
+
+// 调用登录
+let timeout: any = null
+const router = useRouter()
+const userStore = useUserStore()
+async function handleLogin(form: any) {
+  try {
+    const userInfo = await userStore.login({
+      password: form.password,
+      username: form.username,
+    })
+    if (userInfo) {
+      ElMessage.success('登录成功！')
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        router.push({ name: 'index' })
+      }, 300)
+    }
+  } catch (error) {
+    ElMessage.error('登录失败，请重新尝试')
+  }
+}
+
+// 清空
+function clear() {
+  localStorage.clear()
+  sessionStorage.clear()
+}
+clear()
 </script>
 
 <style lang="scss" scoped>
@@ -96,7 +127,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  :deep(.el-input__inner) {
+  :deep(.el-input__wrapper) {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.2);
     border-radius: 30px;

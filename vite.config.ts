@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-20 17:33:03
+ * @LastEditTime: 2022-05-26 16:54:03
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -28,6 +28,7 @@ export default defineConfig({
       localEnabled: !isBuild,
       prodEnabled: isBuild,
       supportTs: true,
+      //  这样可以控制关闭mock的时候不让mock打包到最终代码内
       injectCode: `
         import { setupProdMockServer } from './mockProdServer';
         setupProdMockServer();
