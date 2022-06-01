@@ -3,14 +3,14 @@
  * @Author: hy
  * @Date: 2022-05-20 16:00:00
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 14:58:57
+ * @LastEditTime: 2022-05-27 16:53:35
  */
 import { defineStore } from 'pinia'
 
 interface HeaderState {
-  isCollapse: boolean,
-  searchWord: string | null,
-  theme: string,
+  isCollapse: boolean
+  searchWord: string | null
+  selectTheme: string
 }
 
 export const useHeaderStore = defineStore({
@@ -19,7 +19,7 @@ export const useHeaderStore = defineStore({
     isCollapse: false,
     searchWord: '',
 
-    theme: 'default'
+    selectTheme: 'default',
   }),
   actions: {
     setCollapse(state: boolean) {
@@ -29,8 +29,12 @@ export const useHeaderStore = defineStore({
       this.searchWord = state || ''
     },
     setTheme(state: string) {
-      this.theme = state
-    }
+      this.selectTheme = state
+    },
+    changeTheme(type: string) {
+      this.setTheme(type)
+      document.body.setAttribute('data-theme', type)
+    },
   },
   //使用插件自定义存储
   persist: {

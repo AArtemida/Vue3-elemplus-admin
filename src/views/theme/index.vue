@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:47:25
  * @LastEditors: hy
- * @LastEditTime: 2022-05-26 09:57:38
+ * @LastEditTime: 2022-05-27 15:31:07
 -->
 <template>
   <el-radio-group v-model="selectTheme" @change="changeTheme">
@@ -22,7 +22,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-const selectTheme = ref<string>('default')
+import { useHeaderStore } from '@/store/modules/header'
+import { storeToRefs } from 'pinia'
+const headerStore = useHeaderStore()
+const { selectTheme } = storeToRefs(headerStore)
+
+// const selectTheme = ref<string>('default')
 const themeList = [
   {
     name: '默认',
@@ -39,8 +44,7 @@ const themeList = [
 ]
 
 const changeTheme = (type: string): void => {
-  selectTheme.value = type
-  document.body.setAttribute('data-theme', type)
+  headerStore.changeTheme(type)
 }
 </script>
 

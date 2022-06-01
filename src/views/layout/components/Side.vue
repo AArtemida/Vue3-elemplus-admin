@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 15:33:57
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 14:10:27
+ * @LastEditTime: 2022-06-01 15:11:47
 -->
 <template>
   <el-aside :width="isCollapse ? '64px' : '200px'">
@@ -72,9 +72,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 /* 路由 */
 watch(
-  () => route,
+  () => route.path,
   n => {
-    activeIndex.value = n.path
+    activeIndex.value = n
   }
 )
 
@@ -98,5 +98,6 @@ const { isCollapse } = storeToRefs(headerStore)
 .layout-title {
   color: var(--color-white);
   margin: 20px auto;
+  text-align: center;
 }
 </style>

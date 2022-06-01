@@ -1,4 +1,4 @@
-# tryVueAdmin
+# VueAdmin
 这是一个Vite搭建的简单后台管理系统 ( Vue3 + TS ) 。
 
 ## 技术

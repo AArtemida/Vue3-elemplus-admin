@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 15:38:30
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 14:51:48
+ * @LastEditTime: 2022-05-27 15:32:04
 -->
 <template>
   <el-header class="header">
@@ -112,12 +112,12 @@ async function logout() {
 
 // 收起
 const headerStore = useHeaderStore()
-const { isCollapse } = storeToRefs(headerStore)
+const { isCollapse, selectTheme } = storeToRefs(headerStore)
 function changeCollapse() {
   let status: boolean = !isCollapse.value
   headerStore.setCollapse(status)
 }
-
+headerStore.changeTheme(selectTheme.value)
 </script>
 
 <style lang="scss" scoped>

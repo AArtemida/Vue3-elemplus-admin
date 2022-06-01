@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 16:00:00
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 15:06:03
+ * @LastEditTime: 2022-05-27 16:04:19
  */
 import { defineStore } from 'pinia'
 import { loginApi, logoutApi } from '@/api/user'
@@ -13,7 +13,8 @@ import { UserInfo, LoginParams } from '@/model/userModel'
 interface UserState {
   userInfo: UserInfo | null
   token?: string
-  roles: Array<string>
+  roles: Array<string>,
+  currentRole: string | null
 }
 
 export const useUserStore = defineStore({
@@ -22,6 +23,7 @@ export const useUserStore = defineStore({
     userInfo: null,
     token: undefined,
     roles: ['user', 'admin'],
+    currentRole: null,
   }),
   getters: {
     getUserInfo(): UserInfo | null {
@@ -41,6 +43,9 @@ export const useUserStore = defineStore({
     setToken(state: string | undefined) {
       this.token = state || ''
     },
+    setCurrentRole(state: string | null) {
+      this.currentRole = state || ''
+    },
     // 异步方法
     // 登录
     async login(loginParams: LoginParams): Promise<UserInfo | null> {
@@ -49,6 +54,7 @@ export const useUserStore = defineStore({
         if (res && res.data) {
           const { token, role } = res.data
           this.setToken(token)
+          this.setCurrentRole(role)
           this.setUserInfo({
             ...loginParams,
             role,
