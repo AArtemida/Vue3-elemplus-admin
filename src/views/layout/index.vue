@@ -3,14 +3,14 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 16:56:44
+ * @LastEditTime: 2022-06-01 15:15:57
 -->
 <template>
   <el-container class="layout">
     <Side />
     <el-container direction="vertical">
       <Header />
-      <TabViews v-if="needTagsView" />
+      <!-- <TabViews v-if="needTagsView" /> -->
       <el-main>
         <router-view :key="$route.fullPath"></router-view>
       </el-main>
@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import Side from './components/Side.vue'
 import Header from './components/Header.vue'
-import TabViews from './components/TabViews.vue'
+// import TabViews from './components/TabViews.vue'
 
 const needTagsView = true
 </script>

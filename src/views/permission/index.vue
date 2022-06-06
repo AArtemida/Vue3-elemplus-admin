@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:24:41
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 16:13:34
+ * @LastEditTime: 2022-06-01 16:15:49
 -->
 <template>
   <h3>权限示例</h3>
@@ -21,6 +21,7 @@
       ></el-radio-button>
     </el-radio-group>
   </p>
+  <router-view />
 </template>
 
 <script lang="ts" setup>

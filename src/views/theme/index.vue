@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:47:25
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 15:31:07
+ * @LastEditTime: 2022-06-01 15:14:55
 -->
 <template>
   <el-radio-group v-model="selectTheme" @change="changeTheme">
@@ -66,5 +66,9 @@ const changeTheme = (type: string): void => {
       background: var(--color-black);
     }
   }
+}
+.el-radio-group {
+  text-align: center;
+  margin: 20px auto;
 }
 </style>

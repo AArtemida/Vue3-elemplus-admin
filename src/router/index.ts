@@ -4,7 +4,7 @@ import { store } from '@/store';
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 15:09:39
+ * @LastEditTime: 2022-06-01 16:16:22
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
@@ -94,7 +94,25 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '用户管理',
         },
-        component: () => import('@/views/manage/User.vue'),
+        component: () => import('@/views/manage/index.vue'),
+        children: [
+          {
+            path: '/manage/role',
+            name: 'roleManage',
+            meta: {
+              title: '角色管理',
+            },
+            component: () => import('@/views/manage/Role.vue'),
+          },
+          {
+            path: '/manage/user',
+            name: 'userManage',
+            meta: {
+              title: '用户管理',
+            },
+            component: () => import('@/views/manage/User.vue'),
+          },
+        ]
       },
     ],
   },

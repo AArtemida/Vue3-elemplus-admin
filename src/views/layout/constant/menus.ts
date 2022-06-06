@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:22:50
  * @LastEditors: hy
- * @LastEditTime: 2022-05-24 16:31:16
+ * @LastEditTime: 2022-06-01 16:11:40
  */
 export default [
   {
@@ -28,7 +28,11 @@ export default [
   {
     name: '管理',
     route: '/manage',
-    icon: 'icon-jiaosequanxian'
+    icon: 'icon-jiaosequanxian',
+    children: [
+      {name: '角色管理', route: '/manage/role'},
+      {name: '用户管理', route: '/manage/user'}
+    ]
   },
   {
     name: '主题',
