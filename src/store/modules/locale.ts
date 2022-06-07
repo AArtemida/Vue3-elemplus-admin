@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 16:00:00
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 14:44:35
+ * @LastEditTime: 2022-06-06 17:25:10
  */
 import { defineStore } from 'pinia'
 // import { store } from '@/store'
@@ -31,6 +31,9 @@ export const useLocaleStore = defineStore({
   getters: {
     getLanguages(state): object {
       return state.languages
+    },
+    getLocale(state): string {
+      return state.locale
     },
   },
   actions: {

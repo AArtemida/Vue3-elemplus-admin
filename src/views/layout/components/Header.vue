@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 15:38:30
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 15:32:04
+ * @LastEditTime: 2022-06-06 17:46:12
 -->
 <template>
   <el-header class="header">
@@ -38,7 +38,7 @@
           <li
             v-for="(label, lang) in languages"
             :key="'langauge_' + lang"
-            :class="{select: locale.value === lang}"
+            :class="{select: locale === lang || locale.value === lang}"
             @click="changeSelectLocale(lang)"
           >
             {{ label }}
@@ -57,8 +57,8 @@
           </div>
         </template>
         <ul class="header-options">
-          <li>用户中心</li>
-          <li @click="logout">退出登录</li>
+          <li>{{ $t('header.userCenter') }}</li>
+          <li @click="logout">{{ $t('header.logout') }}</li>
         </ul>
       </el-popover>
     </div>
@@ -70,10 +70,14 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
+import { useI18n } from 'vue-i18n'
+
 import { useUserStore } from '@/store/modules/user'
 import { useLocaleStore } from '@/store/modules/locale'
 import { useHeaderStore } from '@/store/modules/header'
 import { storeToRefs } from 'pinia'
+
+const i18n = useI18n()
 
 // 搜索词
 const searchWord = ref('')
@@ -102,11 +106,11 @@ async function logout() {
   try {
     const status = await userStore.logout()
     if (status) {
-      ElMessage.success('退出成功！')
+      ElMessage.success(i18n.t('login.logoutSuccess'))
       router.push({ name: 'login' })
     }
   } catch (error) {
-    ElMessage.error('退出失败，请重新尝试')
+    ElMessage.error(i18n.t('login.logoutFailed'))
   }
 }
 
@@ -190,6 +194,7 @@ $primary: var(--color-primary);
       line-height: 30px;
       cursor: pointer;
       border-radius: 5px;
+      word-break: break-word;
       &:hover, &.select {
         color: var(--color-primary);
         background: rgba($primary, 0.5);

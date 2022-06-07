@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:45:43
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 15:09:57
+ * @LastEditTime: 2022-06-06 17:41:59
 -->
 <template>
   <div class="login-content">
@@ -33,7 +33,7 @@
             :loading="loading"
             @click="submitForm(loginFormRef)"
           >
-            登录
+            {{ $t('login.login') }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -47,6 +47,11 @@ import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import { useRouter } from 'vue-router'
+
+import { useI18n } from 'vue-i18n'
+
+const i18n = useI18n()
+
 const loading = ref(false)
 const loginForm = reactive({
   username: 'admin',
@@ -55,8 +60,20 @@ const loginForm = reactive({
 
 const loginFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  username: [
+    {
+      required: true,
+      message: i18n.t('login.pleaseInputName'),
+      trigger: 'blur',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      message: i18n.t('login.pleaseInputPsd'),
+      trigger: 'blur',
+    },
+  ],
 })
 // 提交登录
 const submitForm = async (formEl: FormInstance | undefined) => {
@@ -66,9 +83,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     loading.value = false
     if (valid) {
       // setTimeout(() => {
-        const userInfo = {
-          ...loginForm,
-        }
+      const userInfo = {
+        ...loginForm,
+      }
       //   console.log(userInfo)
       //   router.push({ name: 'index' })
       // }, 300)
@@ -90,14 +107,14 @@ async function handleLogin(form: any) {
       username: form.username,
     })
     if (userInfo) {
-      ElMessage.success('登录成功！')
+      ElMessage.success(i18n.t('login.loginSuccess'))
       clearTimeout(timeout)
       timeout = setTimeout(() => {
         router.push({ name: 'index' })
       }, 300)
     }
   } catch (error) {
-    ElMessage.error('登录失败，请重新尝试')
+    ElMessage.error(i18n.t('login.loginFailed'))
   }
 }
 

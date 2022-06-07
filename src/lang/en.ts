@@ -3,10 +3,23 @@
  * @Author: hy
  * @Date: 2022-05-25 09:52:42
  * @LastEditors: hy
- * @LastEditTime: 2022-06-06 16:49:18
+ * @LastEditTime: 2022-06-06 17:45:35
  */
 export default  {
   backIndex: 'Back to home',
+  cancel: 'Cancel',
+  confirm: 'Confirm',
+  login: {
+    logoutSuccess: 'Exit succeeded!',
+    logoutFailed: 'Exit failed, please try again',
+    userName: 'User name',
+    password: 'Password',
+    login: 'Sign in',
+    pleaseInputName: 'Enter one user name',
+    pleaseInputPsd: 'Please input a password',
+    loginSuccess: 'Login succeeded!',
+    loginFailed: 'Login failed, please try again',
+  },
   menu: {
     dashboard: 'Dashboard',
     permission: 'Permission management',

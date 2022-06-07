@@ -3,13 +3,13 @@
  * @Author: hy
  * @Date: 2022-05-20 14:50:36
  * @LastEditors: hy
- * @LastEditTime: 2022-05-23 17:21:40
+ * @LastEditTime: 2022-06-06 17:04:27
 -->
 <template>
   <div class="error-page">
     <img class="error-img" src="../../assets/img/404.png" />
     <div>
-      <el-button type="primary" @click="back">返回首页</el-button>
+      <el-button type="primary" @click="back">{{ $t('backIndex') }}</el-button>
     </div>
   </div>
 </template>

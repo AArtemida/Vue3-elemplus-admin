@@ -3,33 +3,33 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:45
  * @LastEditors: hy
- * @LastEditTime: 2022-05-27 11:34:32
+ * @LastEditTime: 2022-06-06 17:11:17
 -->
 <template>
   <section class="board-top">
-      <el-card v-for="card in topCardList" :key="'dashTopCard_' + card.name">
-        <template #header>
-          <div class="card-header">
-            <span>
-              <i class="iconfont" :class="card.icon"></i>
-              {{ card.name }}
-            </span>
-            <b>{{ formatNumber(card.value) }}</b>
-          </div>
-        </template>
-        <div class="chart-content" v-if="card.name === '访问量'">
-          <p>周同比 12%</p>
-          <p>日同比 11%</p>
+    <el-card v-for="card in topCardList" :key="'dashTopCard_' + card.name">
+      <template #header>
+        <div class="card-header">
+          <span>
+            <i class="iconfont" :class="card.icon"></i>
+            {{ $t(`dashboard.${card.name}`) }}
+          </span>
+          <b>{{ formatNumber(card.value) }}</b>
         </div>
-        <Chart
-          v-else
-          class="chart-content"
-          :chart-data="card.data"
-          :chart-type="card.type"
-          :custom="card.custom"
-        />
-      </el-card>
-    </section>
+      </template>
+      <div class="chart-content" v-if="card.name === 'visits'">
+        <p>周同比 12%</p>
+        <p>日同比 11%</p>
+      </div>
+      <Chart
+        v-else
+        class="chart-content"
+        :chart-data="card.data"
+        :chart-type="card.type"
+        :custom="card.custom"
+      />
+    </el-card>
+  </section>
 </template>
 
 <script lang="ts" setup>
@@ -37,7 +37,7 @@ import Chart from '@components/chart/Chart.vue'
 import { formatNumber } from '@/utils/format'
 const topCardList = [
   {
-    name: '访问量',
+    name: 'visits',
     icon: 'icon-zhuye',
     value: 126560,
     type: 'line',
@@ -53,7 +53,7 @@ const topCardList = [
     },
   },
   {
-    name: '消息数',
+    name: 'messageNumber',
     icon: 'icon-xiaoxi-xiaoxi',
     value: 8846,
     type: 'line',
@@ -71,7 +71,7 @@ const topCardList = [
     },
   },
   {
-    name: '销售额',
+    name: 'saleVolume',
     icon: 'icon-jiage',
     value: 6560,
     data: [
@@ -88,7 +88,7 @@ const topCardList = [
     },
   },
   {
-    name: '购物数',
+    name: 'purchasesNumber',
     icon: 'icon-gouwuchefill',
     value: '78%',
     data: [

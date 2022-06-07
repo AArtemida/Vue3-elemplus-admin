@@ -3,16 +3,16 @@
  * @Author: hy
  * @Date: 2022-05-20 14:24:41
  * @LastEditors: hy
- * @LastEditTime: 2022-06-01 16:15:49
+ * @LastEditTime: 2022-06-06 17:13:23
 -->
 <template>
-  <h3>权限示例</h3>
+  <h3>{{ $t('permission.example') }}</h3>
   <p>
-    当前用户权限：
+    {{ $t('permission.currentRole') }} :
     <span class="cur-role">{{ currentRole }}</span>
   </p>
   <p>
-    切换权限：
+    {{ $t('permission.switch') }} :
     <el-radio-group v-model="currentRole" @change="changeRole">
       <el-radio-button
         v-for="role in roles"

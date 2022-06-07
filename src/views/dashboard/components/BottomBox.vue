@@ -3,14 +3,14 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:56
  * @LastEditors: hy
- * @LastEditTime: 2022-05-26 10:25:06
+ * @LastEditTime: 2022-06-06 17:03:50
 -->
 <template>
   <section class="board-bottom">
     <el-card v-for="card in bottomCardList" :key="'bottomCard_' + card.name">
       <template #header>
         <div class="card-header">
-          <span>{{ card.name }}</span>
+          <span>{{ $t(`dashboard.${card.name}`) }}</span>
         </div>
       </template>
       <Chart
@@ -27,7 +27,7 @@
 import Chart from '@components/chart/Chart.vue'
 const bottomCardList = [
   {
-    name: '热门搜索',
+    name: 'topSearch',
     type: 'line',
     data: [
       { value: 335, name: 'Direct' },
@@ -39,7 +39,7 @@ const bottomCardList = [
     custom: {},
   },
   {
-    name: '类别占比',
+    name: 'categoryProportion',
     type: 'pie',
     data: [
       { value: 335, name: 'Direct' },

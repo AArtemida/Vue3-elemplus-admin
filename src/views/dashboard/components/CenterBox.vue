@@ -3,23 +3,25 @@
  * @Author: hy
  * @Date: 2022-05-23 15:23:50
  * @LastEditors: hy
- * @LastEditTime: 2022-05-25 18:11:25
+ * @LastEditTime: 2022-06-06 17:11:20
 -->
 <template>
   <el-tabs class="center-card" v-model="activeName" @tab-click="handleClick">
     <el-tab-pane
       v-for="(label, tab) in tabs"
       :key="'tab_' + tab"
-      :label="label"
+      :label="$t(`dashboard.${label}`)"
       :name="tab"
     >
       <div class="tab-left tab-content">
-        <h4 class="tab-content__title">统计图</h4>
+        <h4 class="tab-content__title">
+          {{ $t('dashboard.annualStatistics') }}
+        </h4>
         <Chart class="chart-content" :chart-data="saleData" />
       </div>
 
       <div class="tab-right tab-content">
-        <h4 class="tab-content__title">排名</h4>
+        <h4 class="tab-content__title">{{ $t('dashboard.ranking') }}</h4>
         <ul class="tab-right__ul">
           <li v-for="index in listLength" :key="'tab-right' + index">
             <div class="li-title">
@@ -41,39 +43,38 @@ import { formatNumber } from '@/utils/format'
 
 const activeName = ref('sale')
 const tabs = {
-  sale: '销售额',
-  visit: '访问量',
+  sale: 'saleVolume',
+  visit: 'visits',
 }
 
 function getRandom() {
   let value: string = Math.random().toString().slice(-4)
-  if(value.startsWith('0')) {
+  if (value.startsWith('0')) {
     value = 1 + value.substring(1)
   }
   return parseInt(value)
 }
-const saleData: Array<any> = reactive([]), visitData: Array<any> = reactive([])
-for(let i = 0; i < 12; i ++) {
+const saleData: Array<any> = reactive([]),
+  visitData: Array<any> = reactive([])
+for (let i = 0; i < 12; i++) {
   saleData.push({
     value: getRandom(),
-    name: `${i + 1 }月`
+    name: `${i + 1}月`,
   })
   visitData.push({
     value: getRandom(),
-    name: `${i + 1 }月`
+    name: `${i + 1}月`,
   })
 }
 
 const listLength = 6
-const getRankRandom = function(index: number) : string {
+const getRankRandom = function (index: number): string {
   let value: string = Math.random().toString().slice(-5)
-  let newVal: string = (listLength - index) + value.substring(1)
+  let newVal: string = listLength - index + value.substring(1)
   return formatNumber(newVal)
 }
 
-function handleClick() {
-
-}
+function handleClick() {}
 </script>
 
 <style lang="scss" scoped>

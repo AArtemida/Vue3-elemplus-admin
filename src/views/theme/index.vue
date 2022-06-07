@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 14:47:25
  * @LastEditors: hy
- * @LastEditTime: 2022-06-01 15:14:55
+ * @LastEditTime: 2022-06-06 17:11:52
 -->
 <template>
   <el-radio-group v-model="selectTheme" @change="changeTheme">
@@ -13,7 +13,7 @@
       :key="'theme_' + index"
     >
       <el-radio :label="theme.type" size="large">
-        {{ theme.name }}
+        {{ $t(`theme.${theme.type}`) }}
       </el-radio>
       <div class="theme-color" :class="`theme-color-${theme.type}`"></div>
     </div>
@@ -30,15 +30,12 @@ const { selectTheme } = storeToRefs(headerStore)
 // const selectTheme = ref<string>('default')
 const themeList = [
   {
-    name: '默认',
     type: 'default',
   },
   {
-    name: '蓝色',
     type: 'blue',
   },
   {
-    name: '深夜',
     type: 'dark',
   },
 ]

@@ -3,24 +3,22 @@
  * @Author: hy
  * @Date: 2022-05-24 14:47:53
  * @LastEditors: hy
- * @LastEditTime: 2022-05-25 15:57:50
+ * @LastEditTime: 2022-06-06 17:10:05
 -->
 <template>
   <!-- 顶部搜索 -->
   <section class="user-search">
     <div class="user-search__input">
-      账号查询：
+      {{ $t('manage.searchAccount') }} :
       <el-input v-model="searchName">
         <template #prefix>
-          <i
-            class="el-input__icon iconfont icon-sousuo"
-          ></i>
+          <i class="el-input__icon iconfont icon-sousuo"></i>
         </template>
       </el-input>
     </div>
 
     <div class="user-search__input">
-      权限查询：
+      {{ $t('manage.searchPermission') }} :
       <el-select v-model="selectRole" placeholder="Select">
         <el-option
           v-for="item in roleOptions"
@@ -34,8 +32,8 @@
 
   <section class="user-content">
     <div class="user-content__title">
-      <h4>用户管理</h4>
-      <el-button type="primary">添加用户</el-button>
+      <h4>{{ $t('manage.userManage') }}</h4>
+      <el-button type="primary">{{ $t('manage.addUser') }}</el-button>
     </div>
     <!-- 表格 -->
     <el-table
@@ -46,7 +44,11 @@
     >
       <el-table-column type="selection" width="55" />
       <el-table-column prop="id" label="ID" align="center" width="100" />
-      <el-table-column prop="name" label="用户名" align="center">
+      <el-table-column
+        prop="name"
+        :label="$t('manage.userName')"
+        align="center"
+      >
         <template #default="{ row }">
           <i
             class="iconfont icon-renzhengyonghu"
@@ -55,29 +57,37 @@
           <span class="name-txt">{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="role" label="权限" align="center">
+      <el-table-column
+        prop="role"
+        :label="$t('manage.permission')"
+        align="center"
+      >
         <template #default="{ row }">
           <el-tag class="role-txt">{{ row.role }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column :label="$t('manage.operation')" align="center">
         <template #default="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">
-            编辑
+            {{ $t('manage.edit') }}
           </el-button>
           <el-button
             size="small"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
           >
-            删除
+            {{ $t('manage.delete') }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <div class="pagination">
-      <el-pagination background layout="prev, pager, next, jumper" :total="userParams.total" />
+      <el-pagination
+        background
+        layout="prev, pager, next, jumper"
+        :total="userParams.total"
+      />
     </div>
   </section>
 </template>
@@ -98,7 +108,7 @@ const tableData: User[] = []
 const userParams = {
   page: 1,
   rows: 10,
-  total: 100
+  total: 100,
 }
 function getUserList(params: any) {
   let start = (params.page - 1) * params.rows + 1

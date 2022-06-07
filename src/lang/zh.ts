@@ -3,10 +3,23 @@
  * @Author: hy
  * @Date: 2022-05-25 09:52:52
  * @LastEditors: hy
- * @LastEditTime: 2022-06-06 16:16:28
+ * @LastEditTime: 2022-06-06 17:17:09
  */
 export default  {
   backIndex: '返回首页',
+  cancel: '取消',
+  confirm: '确定',
+  login: {
+    logoutSuccess: '退出成功！',
+    logoutFailed: '退出失败，请重新尝试',
+    userName: '用户名',
+    password: '密码',
+    login: '登录',
+    pleaseInputName: '请输入用户名',
+    pleaseInputPsd: '请输入密码',
+    loginSuccess: '登录成功！',
+    loginFailed: '登录失败，请重新尝试',
+  },
   menu: {
     dashboard: '工作台',
     permission: '权限管理',
