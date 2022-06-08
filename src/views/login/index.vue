@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:45:43
  * @LastEditors: hy
- * @LastEditTime: 2022-06-06 17:41:59
+ * @LastEditTime: 2022-06-07 16:43:01
 -->
 <template>
   <div class="login-content">
@@ -108,10 +108,10 @@ async function handleLogin(form: any) {
     })
     if (userInfo) {
       ElMessage.success(i18n.t('login.loginSuccess'))
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        router.push({ name: 'index' })
-      }, 300)
+      // clearTimeout(timeout)
+      // timeout = setTimeout(() => {
+      //   router.replace({ name: 'index' })
+      // }, 300)
     }
   } catch (error) {
     ElMessage.error(i18n.t('login.loginFailed'))

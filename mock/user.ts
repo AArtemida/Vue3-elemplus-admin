@@ -3,9 +3,26 @@
  * @Author: hy
  * @Date: 2022-05-20 17:31:16
  * @LastEditors: hy
- * @LastEditTime: 2022-05-26 17:39:38
+ * @LastEditTime: 2022-06-08 16:53:28
  */
 import { MockMethod } from 'vite-plugin-mock'
+import menus from "../src/router/data"
+
+/* 过滤菜单 */
+function filterMenu(menus, role) {
+  let newMenus = []
+  menus.forEach(menu => {
+    if(menu.meta?.permission && menu.meta.permission.includes(role)) {
+      let newItem = {
+        ...menu
+      }
+      if(menu.children) newItem.children = filterMenu(menu.children, role)
+
+      newMenus.push(newItem)
+    }
+  })
+  return newMenus
+}
 
 const login = {
   url: '/mock/login', // 模拟登录的链接
@@ -14,13 +31,16 @@ const login = {
   statusCode: 200, // 返回的http状态码
   response: ({ query }) => {
     // 返回的结果集
-    let n = query.username
+    const n = query.username
+    const role = n.startsWith('admin') ? 'admin' : 'user'
+    let newMenus = filterMenu(menus, role)
     return {
       code: 1,
       data: {
         username: n,
         token: Math.random().toString(36).substring(2),
-        role: n === 'admin' ? 'admin' : 'user',
+        role,
+        menus: newMenus
       },
     }
   },

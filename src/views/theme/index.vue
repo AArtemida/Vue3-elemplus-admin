@@ -3,21 +3,23 @@
  * @Author: hy
  * @Date: 2022-05-20 14:47:25
  * @LastEditors: hy
- * @LastEditTime: 2022-06-06 17:11:52
+ * @LastEditTime: 2022-06-07 17:01:14
 -->
 <template>
-  <el-radio-group v-model="selectTheme" @change="changeTheme">
-    <div
-      class="theme-radio"
-      v-for="(theme, index) in themeList"
-      :key="'theme_' + index"
-    >
-      <el-radio :label="theme.type" size="large">
-        {{ $t(`theme.${theme.type}`) }}
-      </el-radio>
-      <div class="theme-color" :class="`theme-color-${theme.type}`"></div>
-    </div>
-  </el-radio-group>
+  <div class="theme-content">
+    <el-radio-group v-model="selectTheme" @change="changeTheme">
+      <div
+        class="theme-radio"
+        v-for="(theme, index) in themeList"
+        :key="'theme_' + index"
+      >
+        <el-radio :label="theme.type" size="large">
+          {{ $t(`theme.${theme.type}`) }}
+        </el-radio>
+        <div class="theme-color" :class="`theme-color-${theme.type}`"></div>
+      </div>
+    </el-radio-group>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +48,9 @@ const changeTheme = (type: string): void => {
 </script>
 
 <style lang="scss" scoped>
+.theme-content {
+  text-align: center;
+}
 .theme-radio {
   background: var(--color-card-bg);
   margin: 10px 20px;

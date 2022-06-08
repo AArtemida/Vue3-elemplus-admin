@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 15:33:57
  * @LastEditors: hy
- * @LastEditTime: 2022-06-01 15:11:47
+ * @LastEditTime: 2022-06-08 16:39:13
 -->
 <template>
   <el-aside :width="isCollapse ? '64px' : '200px'">
@@ -58,17 +58,21 @@ import { ref, reactive, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import menus from '../constant/menus.ts'
 import { useHeaderStore } from '@/store/modules/header'
+import { useUserStore } from '@/store/modules/user'
 import { storeToRefs } from 'pinia'
 const route = useRoute()
 
 const activeIndex = ref(route.path)
-const menuList = reactive(menus)
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const handleSelect = (key: string, keyPath: string[]) => {
   activeIndex.value = key
 }
+
+// 用户
+const userStore = useUserStore()
+const menuList = userStore.getSideMenus
 
 /* 路由 */
 watch(

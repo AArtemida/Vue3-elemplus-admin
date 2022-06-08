@@ -1,14 +1,21 @@
-import { store } from '@/store';
 /*
  * @Description:
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-06-01 16:16:22
+ * @LastEditTime: 2022-06-08 16:20:48
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-const routes: Array<RouteRecordRaw> = [
+import { generateRouter } from '@/router/generateRouter'
+
+// 公用路由
+const publicRoutes: Array<RouteRecordRaw> = [
+  // {
+  //   path: '/',
+  //   redirect: { path: '/login' }
+  // },
   {
     path: '/login',
     meta: {
@@ -20,6 +27,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
+    name: 'layout',
     component: () => import('@/views/layout/index.vue'),
     children: [
       {
@@ -27,92 +35,18 @@ const routes: Array<RouteRecordRaw> = [
         name: 'index',
         meta: {
           title: '工作台',
+          icon: 'icon-gongzuotai',
         },
         component: () => import('@/views/dashboard/index.vue'),
       },
       {
         path: '/dashboard',
-        name: 'dashboard',
+        name: 'index',
         meta: {
           title: '工作台',
+          icon: 'icon-gongzuotai',
         },
         component: () => import('@/views/dashboard/index.vue'),
-      },
-      {
-        path: '/permission',
-        name: 'permission',
-        meta: {
-          title: '权限控制',
-        },
-        component: () => import('@/views/permission/index.vue'),
-        children: [
-          {
-            path: '/permission/page',
-            name: 'pagePermission',
-            meta: {
-              title: '页面权限',
-            },
-            component: () => import('@/views/permission/Page.vue'),
-          },
-          {
-            path: '/permission/button',
-            name: 'buttonPermission',
-            meta: {
-              title: '按钮权限',
-            },
-            component: () => import('@/views/permission/Button.vue'),
-          },
-        ]
-      },
-      {
-        path: '/theme',
-        name: 'theme',
-        meta: {
-          title: '主题',
-        },
-        component: () => import('@/views/theme/index.vue'),
-      },
-      {
-        path: '/errorPage',
-        name: 'errorPage',
-        meta: {
-          title: '错误页',
-        },
-        component: () => import('@/views/errorPage/index.vue'),
-      },
-      {
-        path: '/list',
-        name: 'list',
-        meta: {
-          title: '列表',
-        },
-        component: () => import('@/views/list/index.vue'),
-      },
-      {
-        path: '/manage',
-        name: 'manage',
-        meta: {
-          title: '用户管理',
-        },
-        component: () => import('@/views/manage/index.vue'),
-        children: [
-          {
-            path: '/manage/role',
-            name: 'roleManage',
-            meta: {
-              title: '角色管理',
-            },
-            component: () => import('@/views/manage/Role.vue'),
-          },
-          {
-            path: '/manage/user',
-            name: 'userManage',
-            meta: {
-              title: '用户管理',
-            },
-            component: () => import('@/views/manage/User.vue'),
-          },
-        ]
       },
     ],
   },
@@ -121,12 +55,8 @@ const routes: Array<RouteRecordRaw> = [
     name: '404',
     component: () => import('@/views/errorPage/index.vue'),
   },
-  // 404 page must be placed at the end !!!
-  {
-    path: '/:pathMatch(.*)',
-    redirect: '/404'
-  }
 ]
+const routes: Array<RouteRecordRaw> = [...publicRoutes]
 
 const router = createRouter({
   // base: process.env.BASE_URL,
@@ -134,18 +64,29 @@ const router = createRouter({
   routes,
 })
 
+// 路由拦截
+let registerRouteFresh = true
 router.beforeEach((to, from, next) => {
   let title: any = to.meta.title ? to.meta.title : 'project'
   window.document.title = title
 
   // 登录权限
   const userSession = sessionStorage.getItem('storeUser')
-  let token = null
-  if(userSession && userSession !== 'null') {
+  let token = null,
+    menus = []
+  if (userSession && userSession !== 'null') {
     const storeUser = JSON.parse(userSession)
     token = storeUser.token || ''
+    menus = storeUser.menus || []
   }
-  if(to.path !== '/login' && !token) {
+  // 刷新页面时添加路由
+  if (registerRouteFresh) {
+    generateRouter(menus).then(() => {
+      next(to)
+    })
+    registerRouteFresh = false
+  } else if (to.path !== '/login' && !token) {
+    // token失效退出登录
     // const fullPath = to.fullPath || ''
     // const path = to.path || ''
     // let params = ''
