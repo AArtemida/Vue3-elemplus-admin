@@ -3,9 +3,19 @@
  * @Author: hy
  * @Date: 2022-06-07 11:36:21
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 16:24:16
+ * @LastEditTime: 2022-06-08 17:25:06
  */
 const menus: Array<any> = [
+  {
+    path: '/dashboard',
+    name: 'index',
+    meta: {
+      title: '工作台',
+      icon: 'icon-gongzuotai',
+      permission: ['admin', 'user']
+    },
+    componentName: 'dashboard/index',
+  },
   {
     path: '/permission',
     name: 'permission',

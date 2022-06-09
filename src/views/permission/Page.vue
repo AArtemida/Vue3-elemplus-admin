@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-24 14:47:49
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 16:59:38
+ * @LastEditTime: 2022-06-09 10:06:56
 -->
 <template>
   <h4>{{ $t('permission.page') }}</h4>
@@ -17,6 +17,12 @@
       ></el-radio-button>
     </el-radio-group>
   </p>
+  <el-alert
+    title=""
+    type="warning"
+    description="点击切换后请查看菜单变化"
+    show-icon
+  />
 </template>
 
 <script lang="ts" setup>
@@ -26,8 +32,9 @@ import { storeToRefs } from 'pinia'
 const userStore = useUserStore()
 const { currentRole, roles } = storeToRefs(userStore)
 
-function changeRole(role: string | null) {
-  userStore.setCurrentRole(role)
+async function changeRole(role: string | null) {
+  await userStore.setCurrentRole(role)
+  location.reload()
 }
 </script>
 
@@ -35,5 +42,6 @@ function changeRole(role: string | null) {
 .switch-box {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 </style>

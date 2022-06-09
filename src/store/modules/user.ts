@@ -3,12 +3,12 @@
  * @Author: hy
  * @Date: 2022-05-20 16:00:00
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 16:38:38
+ * @LastEditTime: 2022-06-08 17:29:18
  */
 import { defineStore } from 'pinia'
-import { loginApi, logoutApi } from '@/api/user'
+import { loginApi, logoutApi, getPermissionMenu } from '@/api/user'
 import { UserInfo, LoginParams } from '@/model/userModel'
-import { MenuItem, ElMenuItem } from '@/model/MenuItem'
+import { MenuItem, ElMenuItem } from '@/model/MenuModel'
 import { generateRouter } from '@/router/generateRouter'
 import router from '@/router/index'
 // import { store } from '@/store'
@@ -53,6 +53,9 @@ export const useUserStore = defineStore({
     getToken(): string | undefined {
       return this.token
     },
+    getCurrentRole(): string | null {
+      return this.currentRole
+    },
     getRoles(): Array<string> {
       return this.roles.length > 0 ? this.roles : []
     },
@@ -71,27 +74,30 @@ export const useUserStore = defineStore({
     setToken(state: string | undefined) {
       this.token = state || ''
     },
-    setCurrentRole(state: string | null) {
-      this.currentRole = state || ''
-    },
     setMenus(state: Array<MenuItem>) {
       this.menus = state || []
     },
     /* 异步方法 */
+    async setCurrentRole(state: string | null) {
+      this.currentRole = state || ''
+
+      await this.changePermissionMenu()
+    },
     // 登录
     async login(loginParams: LoginParams): Promise<UserInfo | null> {
       try {
         const res = await loginApi(loginParams)
         if (res && res.data) {
-          const { token, role, menus } = res.data
+          const { token, role } = res.data
           this.setToken(token)
-          this.setCurrentRole(role)
           this.setUserInfo({
             ...loginParams,
             role,
           })
 
-          this.afterLoginAction(menus)
+          router.replace({ name: 'index' })
+
+          this.setCurrentRole(role)
           return loginParams
         }
         return null
@@ -99,13 +105,15 @@ export const useUserStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async afterLoginAction(menus: Array<MenuItem>) {
-      if (!this.getToken) return null
+    async changePermissionMenu() {
+      if (!this.getCurrentRole) return null
+      const res = await getPermissionMenu({
+        role: this.getCurrentRole
+      })
+      const menus = res?.data
       this.setMenus(menus)
 
       generateRouter(menus)
-
-      await router.replace({ name: 'index' })
     },
     // 退出登录
     async logout() {
