@@ -9,9 +9,15 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": [
-      "pinia-plugin-persist"
-    ]
+    "types": ["pinia-plugin-persist"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/lang/index.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/lang/index.ts",
+    "mock/**/*.ts",
+    "vite.config.ts"
+  ]
 }

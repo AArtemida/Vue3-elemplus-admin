@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-27 16:14:11
  * @LastEditors: hy
- * @LastEditTime: 2022-06-06 17:49:32
+ * @LastEditTime: 2022-06-09 15:02:16
 -->
 <template>
   <div>
@@ -36,7 +36,23 @@
       width="42%"
       :before-close="handleClose"
     >
-      <span>This is a message</span>
+      <p>
+        选中权限：
+        <span v-if="selectItem">{{ selectItem.role }}</span>
+      </p>
+      <div>
+        <p>菜单编辑：</p>
+        <el-tree
+          v-if="selectItem"
+          :key="'tree_' + selectItem.role"
+          :data="treeList"
+          node-key="label"
+          :default-checked-keys="defaultChecks"
+          :props="defaultProps"
+          @check-change="changeTreeCheck"
+          show-checkbox
+        />
+      </div>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">
@@ -54,6 +70,9 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { MenuItem } from '@/model/MenuModel'
+import menuList from "@/router/data"
+
 const i18n = useI18n()
 
 const dialogVisible = ref(false)
@@ -69,9 +88,44 @@ const tableData = [
     desc: i18n.t('manage.user'),
   },
 ]
+
+// 菜单
+const defaultProps = {
+  children: 'children',
+  label: 'label',
+  disabled: 'disabled',
+}
+
+// 默认选中
+let defaultChecks : any = ref([])
+let treeList : any = ref([])
+// 转格式
+function handleTreeData(menus: Array<MenuItem>, role: string) {
+  return menus.map((menu: MenuItem) => {
+    let newItem: any = {
+      label: menu.meta?.title,
+    }
+    if (menu.children) newItem.children = handleTreeData(menu.children, role)
+
+    if(menu.meta?.permission && menu.meta.permission.includes(role)) {
+      defaultChecks.value.push(newItem.label)
+    }
+    return newItem
+  })
+}
+
 const handleEdit = (select: any) => {
   dialogVisible.value = true
   selectItem = select
+
+  defaultChecks.value = []
+  treeList.value = handleTreeData(menuList, select?.role)
 }
-const handleClose = function () {}
+const handleClose = function () {
+  dialogVisible.value = false
+}
+
+function changeTreeCheck() {
+
+}
 </script>

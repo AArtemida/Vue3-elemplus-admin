@@ -3,9 +3,10 @@
  * @Author: hy
  * @Date: 2022-06-07 11:36:21
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 17:25:06
+ * @LastEditTime: 2022-06-09 14:18:10
  */
-const menus: Array<any> = [
+import { MenuItem } from '@/model/MenuModel'
+const menus: Array<MenuItem> = [
   {
     path: '/dashboard',
     name: 'index',

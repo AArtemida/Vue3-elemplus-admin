@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-19 16:21:52
  * @LastEditors: hy
- * @LastEditTime: 2022-05-26 16:54:03
+ * @LastEditTime: 2022-06-23 09:54:33
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -20,9 +20,6 @@ const isBuild = false
 export default defineConfig({
   plugins: [
     vue(),
-    OptimizationPersist(),
-    PkgConfig(),
-
     viteMockServe({
       mockPath: './mock',
       localEnabled: !isBuild,
@@ -34,6 +31,8 @@ export default defineConfig({
         setupProdMockServer();
       `,
     }),
+    PkgConfig(),
+    OptimizationPersist(),
     // Components({
     //   // allow auto load markdown components under `./src/components/`
     //   extensions: ['vue', 'md'],

@@ -37,5 +37,13 @@
     "vite-plugin-optimize-persist": "^0.1.2",
     "vite-plugin-package-config": "^0.1.1",
     "vue-tsc": "^0.0.24"
+  },
+  "vite": {
+    "optimizeDeps": {
+      "include": [
+        "element-plus/lib/locale/lang/en",
+        "element-plus/lib/locale/lang/zh-cn"
+      ]
+    }
   }
 }

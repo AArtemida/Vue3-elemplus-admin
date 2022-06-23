@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 17:31:16
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 17:12:19
+ * @LastEditTime: 2022-06-09 14:43:11
  */
 import { MockMethod } from 'vite-plugin-mock'
 import menus from "../src/router/data"
@@ -42,18 +42,16 @@ const logout = {
 
 /* 过滤菜单 */
 function filterMenu(menus, role) {
-  let newMenus = []
-  menus.forEach(menu => {
-    if(menu.meta?.permission && menu.meta.permission.includes(role)) {
-      let newItem = {
-        ...menu
-      }
-      if(menu.children) newItem.children = filterMenu(menu.children, role)
-
-      newMenus.push(newItem)
+  return menus.filter(menu => {
+    return menu.meta?.permission && menu.meta.permission.includes(role)
+  }).map(menu => {
+    let newItem = {
+      ...menu
     }
+    if(menu.children) newItem.children = filterMenu(menu.children, role)
+
+    return newItem
   })
-  return newMenus
 }
 
 const getPermissionMenu = {

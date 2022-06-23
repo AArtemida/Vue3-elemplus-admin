@@ -3,7 +3,7 @@
  * @Author: hy
  * @Date: 2022-05-20 16:00:00
  * @LastEditors: hy
- * @LastEditTime: 2022-06-08 17:29:18
+ * @LastEditTime: 2022-06-09 13:58:02
  */
 import { defineStore } from 'pinia'
 import { loginApi, logoutApi, getPermissionMenu } from '@/api/user'
@@ -22,17 +22,15 @@ interface UserState {
 }
 /* 获取侧边菜单 */
 function transformMenu(menus: Array<MenuItem>) {
-  let list: Array<ElMenuItem> = []
-  menus.forEach((menu: MenuItem) => {
+  return menus.map((menu: MenuItem) => {
     let item : ElMenuItem = {
       name: menu.meta?.title,
       route: menu.path,
     }
     if(menu.meta?.icon) item.icon = menu.meta?.icon
     if(menu.children) item.children = transformMenu(menu.children)
-    list.push(item)
+    return item
   })
-  return list
 }
 
 export const useUserStore = defineStore({
