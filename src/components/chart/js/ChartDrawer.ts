@@ -134,6 +134,14 @@ class ChartDrawer {
     return options
   }
 
+  changeData(newData : any) {
+    if(this.chartOptions.series) {
+      this.chartOptions.series[0].data = newData
+    } else {
+      this.initChart()
+    }
+  }
+
   //获取坐标轴
   getAxis() {
     let custom = this.custom || {}

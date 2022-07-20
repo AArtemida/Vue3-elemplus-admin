@@ -6,4 +6,5 @@
  * @LastEditTime: 2022-05-20 17:47:11
  */
 import user from './user'
-export default [user]
+import dashboard from './dashboard'
+export default [user, dashboard]

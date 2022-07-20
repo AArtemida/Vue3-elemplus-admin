@@ -23,12 +23,12 @@ import {
   LegendComponent,
   GridComponent,
   DataZoomComponent,
-  AxisPointerComponent
+  AxisPointerComponent,
 } from 'echarts/components'
 
 import ChartDrawer from './js/ChartDrawer'
 import VChart from 'vue-echarts'
-import { reactive, defineProps } from 'vue'
+import { ref, defineProps, watch } from 'vue'
 
 use([
   CanvasRenderer,
@@ -41,22 +41,33 @@ use([
   LegendComponent,
   GridComponent,
   DataZoomComponent,
-  AxisPointerComponent
+  AxisPointerComponent,
 ])
 
 const props = defineProps({
-	// dom: String,
+  // dom: String,
   chartType: String,
   chartData: Array,
-  custom: Object
+  custom: Object,
 })
-
+let data = props.chartData || []
 const chart = new ChartDrawer({
   // dom: props.dom || 'chart_dom',
   chartType: props.chartType || 'bar',
-  chartData: props.chartData || [],
-  custom: props.custom
+  chartData: data,
+  custom: props.custom,
 })
 chart.initChart()
-let option: object = reactive(chart.chartOptions)
+
+let option: any = ref(chart.chartOptions)
+
+// 监听数据变化
+watch(
+  () => props.chartData,
+  () => {
+    chart.initChart()
+    option.value = chart.chartOptions
+  },
+  { deep: true }
+)
 </script>
