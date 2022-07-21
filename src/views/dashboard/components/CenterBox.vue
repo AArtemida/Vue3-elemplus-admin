@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-06-06 17:11:20
 -->
 <template>
-  <el-tabs class="center-card" v-model="activeName" @tab-click="handleClick">
+  <el-tabs class="center-card" v-model="activeName" @tab-change="handleClick">
     <el-tab-pane
       v-for="(label, tab) in tabs"
       :key="'tab_' + tab"
@@ -15,9 +15,10 @@
     >
       <div class="tab-left tab-content">
         <h4 class="tab-content__title">
+          <span>{{ $t(`dashboard.${label}`) }}</span>
           {{ $t('dashboard.annualStatistics') }}
         </h4>
-        <Chart class="chart-content" :chart-data="saleData" />
+        <Chart class="chart-content" :chart-data="datas[tab]" v-loading="loading"/>
       </div>
 
       <div class="tab-right tab-content">
@@ -38,34 +39,27 @@
 
 <script lang="ts" setup>
 import Chart from '@components/chart/Chart.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, toRefs } from 'vue'
 import { formatNumber } from '@/utils/format'
+import { getCenterChartDataApi } from '@/api/dashboard'
+import { ChartListItem } from '@/model/ListModel'
 
-const activeName = ref('sale')
+let activeName = ref('sale')
 const tabs = {
   sale: 'saleVolume',
   visit: 'visits',
 }
+let clicked : Array<string> = ['sale']
 
-function getRandom() {
-  let value: string = Math.random().toString().slice(-4)
-  if (value.startsWith('0')) {
-    value = 1 + value.substring(1)
-  }
-  return parseInt(value)
+interface CenterData {
+  sale: Array<ChartListItem>,
+  visit: Array<ChartListItem>
 }
-const saleData: Array<any> = reactive([]),
-  visitData: Array<any> = reactive([])
-for (let i = 0; i < 12; i++) {
-  saleData.push({
-    value: getRandom(),
-    name: `${i + 1}月`,
-  })
-  visitData.push({
-    value: getRandom(),
-    name: `${i + 1}月`,
-  })
-}
+// 定义初始数据
+let datas = reactive({
+  'sale': [] as ChartListItem[],
+  'visit': [] as ChartListItem[],
+})
 
 const listLength = 6
 const getRankRandom = function (index: number): string {
@@ -74,7 +68,29 @@ const getRankRandom = function (index: number): string {
   return formatNumber(newVal)
 }
 
-function handleClick() {}
+// 请求数据
+let loading = ref(false)
+async function getChartData() {
+  loading.value = true
+  let res = await getCenterChartDataApi()
+  loading.value = false
+  if (res && res.data) {
+    let active : string = activeName.value
+    console.log(active)
+    let arr = datas[active as keyof CenterData]
+    arr.push(...res.data)
+  }
+}
+getChartData()
+
+// 点击tab
+function handleClick() {
+  let active : string = activeName.value
+  if(!clicked.includes(active)) {
+    getChartData()
+    clicked.push(active)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

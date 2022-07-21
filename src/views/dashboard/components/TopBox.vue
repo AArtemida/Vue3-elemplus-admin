@@ -7,7 +7,10 @@
 -->
 <template>
   <section class="board-top">
-    <el-card v-for="card in topCardList" :key="'dashTopCard_' + card.name">
+    <el-card
+      v-for="card in topCardList"
+      :key="'dashTopCard_' + card.name"
+    >
       <template #header>
         <div class="card-header">
           <span>
@@ -24,7 +27,8 @@
       <Chart
         v-else
         class="chart-content"
-        :chart-data="card.data"
+        v-loading="loading"
+        :chart-data="cardData"
         :chart-type="card.type"
         :custom="card.custom"
       />
@@ -35,19 +39,15 @@
 <script lang="ts" setup>
 import Chart from '@components/chart/Chart.vue'
 import { formatNumber } from '@/utils/format'
+import { getChartDataApi } from '@/api/dashboard'
+import { ref } from 'vue'
+
 const topCardList = [
   {
     name: 'visits',
     icon: 'icon-zhuye',
     value: 126560,
     type: 'line',
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {
       showAxisLine: false,
     },
@@ -57,13 +57,6 @@ const topCardList = [
     icon: 'icon-xiaoxi-xiaoxi',
     value: 8846,
     type: 'line',
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {
       showAxisLine: false,
       showCategoryAxisLabel: false,
@@ -74,13 +67,6 @@ const topCardList = [
     name: 'saleVolume',
     icon: 'icon-jiage',
     value: 6560,
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {
       showAxisLine: false,
       showCategoryAxisLabel: false,
@@ -91,13 +77,6 @@ const topCardList = [
     name: 'purchasesNumber',
     icon: 'icon-gouwuchefill',
     value: '78%',
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {
       showAxisLine: false,
       showCategoryAxisLabel: false,
@@ -105,6 +84,19 @@ const topCardList = [
     },
   },
 ]
+let cardData: any = ref([])
+// 请求数据
+let loading = ref(false)
+async function getChartData() {
+  loading.value = true
+  let res = await getChartDataApi()
+  loading.value = false
+  if (res && res.data) {
+    cardData.value.push(...res.data)
+  }
+}
+
+getChartData()
 </script>
 
 <style lang="scss" scoped>

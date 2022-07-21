@@ -19,7 +19,7 @@ const getRequestIdentify = (config: any, isRequest = false) => {
   if (isRequest) {
     url = config.baseURL + config.url.substring(1, config.url.length)
   }
-  const arr = ['put', 'post']
+  const arr = ['put', 'get']
   return arr.includes(config.method)
     ? encodeURIComponent(url + JSON.stringify(config.params))
     : encodeURIComponent(config.url + JSON.stringify(config.data))

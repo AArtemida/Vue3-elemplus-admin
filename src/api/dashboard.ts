@@ -1,7 +1,11 @@
 import $axios from '../utils/request'
 
-export function getChartDataApi() {
-  return $axios.get('/mock/getTopChartData')
+export function getChartDataApi(type: string) {
+  return $axios.get('/mock/getTopChartData', {
+    params: {
+      type,
+    },
+  })
 }
 
 export function getCenterChartDataApi() {

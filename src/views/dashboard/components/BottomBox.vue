@@ -15,7 +15,8 @@
       </template>
       <Chart
         class="chart-content"
-        :chart-data="card.data"
+        v-loading="loading"
+        :chart-data="cardData"
         :chart-type="card.type"
         :custom="card.custom"
       />
@@ -25,34 +26,36 @@
 
 <script lang="ts" setup>
 import Chart from '@components/chart/Chart.vue'
+import { getChartDataApi } from '@/api/dashboard'
+import { ref } from 'vue'
+
 const bottomCardList = [
   {
     name: 'topSearch',
     type: 'line',
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {},
   },
   {
     name: 'categoryProportion',
     type: 'pie',
-    data: [
-      { value: 335, name: 'Direct' },
-      { value: 310, name: 'Email' },
-      { value: 234, name: 'Ad Networks' },
-      { value: 135, name: 'Video Ads' },
-      { value: 1548, name: 'Search Engines' },
-    ],
     custom: {
       showRingPie: true,
     },
   },
 ]
+
+let cardData: any = ref([])
+// 请求数据
+let loading = ref(false)
+async function getChartData() {
+  loading.value = true
+  let res = await getChartDataApi('bottom')
+  loading.value = false
+  if (res && res.data) {
+    cardData.value.push(...res.data)
+  }
+}
+getChartData()
 </script>
 
 <style lang="scss" scoped>

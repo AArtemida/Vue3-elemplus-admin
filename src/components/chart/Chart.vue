@@ -65,6 +65,7 @@ let option: any = ref(chart.chartOptions)
 watch(
   () => props.chartData,
   () => {
+    // console.log('watch执行')
     chart.initChart()
     option.value = chart.chartOptions
   },
