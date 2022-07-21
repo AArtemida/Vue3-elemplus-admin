@@ -7,4 +7,5 @@
  */
 import user from './user'
 import dashboard from './dashboard'
-export default [user, dashboard]
+import mange from './mange'
+export default [user, dashboard, mange]

@@ -57,7 +57,7 @@
           </div>
         </template>
         <ul class="header-options">
-          <li>{{ $t('header.userCenter') }}</li>
+          <!-- <li>{{ $t('header.userCenter') }}</li> -->
           <li @click="logout">{{ $t('header.logout') }}</li>
         </ul>
       </el-popover>

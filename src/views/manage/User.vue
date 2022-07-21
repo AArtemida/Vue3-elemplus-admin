@@ -10,7 +10,7 @@
   <section class="user-search">
     <div class="user-search__input">
       {{ $t('manage.searchAccount') }} :
-      <el-input v-model="searchName">
+      <el-input v-model="searchName" clearable @change="changeSearch">
         <template #prefix>
           <i class="el-input__icon iconfont icon-sousuo"></i>
         </template>
@@ -19,7 +19,12 @@
 
     <div class="user-search__input">
       {{ $t('manage.searchPermission') }} :
-      <el-select v-model="selectRole" placeholder="Select">
+      <el-select
+        v-model="selectRole"
+        clearable
+        placeholder="Select"
+        @change="changeRole"
+      >
         <el-option
           v-for="item in roleOptions"
           :key="item"
@@ -37,13 +42,13 @@
     </div>
     <!-- 表格 -->
     <el-table
-      :data="tableData"
+      :data="tableData.list"
       stripe
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="id" label="ID" align="center" width="100" />
+      <el-table-column prop="userId" label="ID" align="center" width="100" />
       <el-table-column
         prop="name"
         :label="$t('manage.userName')"
@@ -54,7 +59,7 @@
             class="iconfont icon-renzhengyonghu"
             v-if="row.role === 'admin'"
           ></i>
-          <span class="name-txt">{{ row.name }}</span>
+          <span class="name-txt">{{ row.username }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -86,7 +91,9 @@
       <el-pagination
         background
         layout="prev, pager, next, jumper"
-        :total="userParams.total"
+        :total="userTotal"
+        :current-page="userParams.page"
+        @current-change="changePage"
       />
     </div>
   </section>
@@ -94,38 +101,57 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-const searchName = ref(''),
+import { getUserListApi } from '@/api/mange'
+import { UserInfo } from '../src/model/userModel'
+
+let searchName = ref(''),
   selectRole = ref('')
 
 const roleOptions = ['user', 'admin']
 
-interface User {
-  id: string | number
-  name: string
-  role: string
-}
-const tableData: User[] = []
-const userParams = {
+let tableData = reactive({
+  list: [],
+})
+let userParams = {
   page: 1,
   rows: 10,
-  total: 100,
 }
-function getUserList(params: any) {
-  let start = (params.page - 1) * params.rows + 1
-  for (let i = 0; i < params.rows; i++) {
-    let index = start + i
-    let item: User = {
-      id: index,
-      name: 'User' + index,
-      role: index < 4 ? 'admin' : 'user',
-    }
-
-    tableData.push(item)
+let userTotal = ref(0)
+// 请求数据
+let loading = ref(false)
+async function getUserList({ page, rows }: { page: number; rows: number }) {
+  let start = (page - 1) * rows
+  loading.value = true
+  let res = await getUserListApi({
+    role: selectRole.value,
+    search: searchName.value,
+    start,
+    rows,
+  })
+  loading.value = false
+  if (res && res.data) {
+    tableData.list = res.data
   }
+  userTotal.value = res && res.total ? res.total : 0
 }
 
 getUserList(userParams)
 
+// 选择角色
+const changeRole = () => {
+  userParams.page = 1
+  getUserList(userParams)
+}
+// 搜索
+const changeSearch = () => {
+  userParams.page = 1
+  getUserList(userParams)
+}
+// 翻页
+const changePage = function (page: number) {
+  userParams.page = page
+  getUserList(userParams)
+}
 const handleDelete = function () {}
 const handleEdit = function () {}
 const handleSelectionChange = function () {}

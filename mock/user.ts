@@ -13,7 +13,7 @@ const login = {
   method: 'get', // 请求方式
   // timeout: 5000, // 超时时间
   statusCode: 200, // 返回的http状态码
-  response: ({ query }) => {
+  response: ({ query }: { query: any }) => {
     // 返回的结果集
     const n = query.username
     const role = n.startsWith('admin') ? 'admin' : 'user'

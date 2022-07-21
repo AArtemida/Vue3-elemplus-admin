@@ -19,3 +19,10 @@ export interface UserInfo {
 export interface PermissionParams {
   role: string
 }
+
+export interface UserListParams {
+  start: number
+  rows: number
+  role?: string
+  search?: string
+}
