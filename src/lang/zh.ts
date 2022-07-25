@@ -5,10 +5,12 @@
  * @LastEditors: hy
  * @LastEditTime: 2022-06-06 17:17:09
  */
-export default  {
+export default {
   backIndex: '返回首页',
   cancel: '取消',
   confirm: '确定',
+  noData: '暂无数据',
+  time: '时间',
   login: {
     logoutSuccess: '退出成功！',
     logoutFailed: '退出失败，请重新尝试',
@@ -26,7 +28,7 @@ export default  {
     list: '列表',
     manage: '管理',
     theme: '主题',
-    errorPage: '错误页'
+    errorPage: '错误页',
   },
   header: {
     userCenter: '用户中心',
@@ -40,7 +42,7 @@ export default  {
     annualStatistics: '年度统计',
     ranking: '排名',
     topSearch: '热门搜索',
-    categoryProportion: '类别占比'
+    categoryProportion: '类别占比',
   },
 
   permission: {
@@ -48,7 +50,7 @@ export default  {
     currentRole: '当前用户角色',
     switch: '切换权限',
     page: '页面权限',
-    button: '按钮权限'
+    button: '按钮权限',
   },
 
   manage: {
@@ -66,11 +68,13 @@ export default  {
     searchAccount: '账号查询',
     searchPermission: '权限查询',
     addUser: '添加用户',
+    selectRole: '选中权限',
+    editMenu: '菜单编辑',
   },
 
   theme: {
     default: '默认',
     blue: '蓝色',
-    dark: '深夜'
-  }
+    dark: '深夜',
+  },
 }

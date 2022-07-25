@@ -5,10 +5,12 @@
  * @LastEditors: hy
  * @LastEditTime: 2022-06-06 17:45:35
  */
-export default  {
+export default {
   backIndex: 'Back to home',
   cancel: 'Cancel',
   confirm: 'Confirm',
+  noData: 'No data',
+  time: 'Time',
   login: {
     logoutSuccess: 'Exit succeeded!',
     logoutFailed: 'Exit failed, please try again',
@@ -26,7 +28,7 @@ export default  {
     list: 'List',
     manage: 'Administration',
     theme: 'Theme',
-    errorPage: 'Error page'
+    errorPage: 'Error page',
   },
   header: {
     userCenter: 'Personal information',
@@ -40,7 +42,7 @@ export default  {
     annualStatistics: 'Annual statistics',
     ranking: 'Ranking',
     topSearch: 'Top search',
-    categoryProportion: 'Category proportion'
+    categoryProportion: 'Category proportion',
   },
 
   permission: {
@@ -48,7 +50,7 @@ export default  {
     currentRole: 'Current user role',
     switch: 'Switch permissions',
     page: 'Page permissions',
-    button: 'Button permissions'
+    button: 'Button permissions',
   },
 
   manage: {
@@ -66,11 +68,13 @@ export default  {
     searchAccount: 'Account query',
     searchPermission: 'Permission query',
     addUser: 'Add user',
+    selectRole: 'Current role',
+    editMenu: 'Edit menu',
   },
 
   theme: {
     default: 'Default',
     blue: 'Blue',
-    dark: 'Dark'
-  }
+    dark: 'Dark',
+  },
 }

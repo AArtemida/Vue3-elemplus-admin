@@ -6,5 +6,5 @@
  * @LastEditTime: 2022-05-24 15:45:06
 -->
 <template>
-  <el-empty description="暂无数据" />
+  <el-empty :description="$t('noData')" />
 </template>

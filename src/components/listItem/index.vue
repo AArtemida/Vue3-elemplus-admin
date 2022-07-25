@@ -7,7 +7,7 @@
 -->
 <template>
   <el-card class="list-item">
-    <el-image class="list-item__img" :src="item.img" fit="fill">
+    <el-image class="list-item__img" :src="item?.img" fit="fill">
       <template #error>
         <div class="image-slot">
           <i class="iconfont icon-ku"></i>
@@ -15,9 +15,9 @@
       </template>
     </el-image>
     <div class="list-item__content">
-      <h4>{{ item.title }}</h4>
-      <p v-if="item.content">{{ item.content }}</p>
-      <p class="list-item__time" v-if="item.time">时间：{{ item.time }}</p>
+      <h4>{{ item?.title }}</h4>
+      <p v-if="item?.content">{{ item.content }}</p>
+      <p class="list-item__time" v-if="item?.time">{{ $t('time') }} : {{ item.time }}</p>
     </div>
   </el-card>
 </template>

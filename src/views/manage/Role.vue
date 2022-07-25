@@ -31,20 +31,21 @@
 
     <!-- 编辑权限框 -->
     <el-dialog
+      custom-class="edit-dialog"
       v-model="dialogVisible"
       :title="$t('manage.editPermission')"
       width="42%"
       :before-close="handleClose"
     >
-      <p>
-        选中权限：
-        <span v-if="selectItem">{{ selectItem.role }}</span>
+      <p class="select-role">
+        {{ $t('manage.selectRole') }} : 
+        <span  class="select-role__text" v-if="currentSelect.item">{{ currentSelect.item.role }}</span>
       </p>
       <div>
-        <p>菜单编辑：</p>
+        <p>{{ $t('manage.editMenu') }} : </p>
         <el-tree
-          v-if="selectItem"
-          :key="'tree_' + selectItem.role"
+          v-if="currentSelect.item"
+          :key="'tree_' + currentSelect.item.role"
           :data="treeList"
           node-key="label"
           :default-checked-keys="defaultChecks"
@@ -55,10 +56,10 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">
+          <el-button @click="handleClose">
             {{ $t('cancel') }}
           </el-button>
-          <el-button type="primary" @click="dialogVisible = false">
+          <el-button type="primary" @click="handleClose">
             {{ $t('confirm') }}
           </el-button>
         </span>
@@ -75,8 +76,12 @@ import menuList from "@/router/data"
 
 const i18n = useI18n()
 
-const dialogVisible = ref(false)
-let selectItem = reactive({})
+//  保持当前选中项
+let currentSelect = reactive({
+  item: {
+    role: null
+  }
+})
 
 const tableData = [
   {
@@ -114,9 +119,11 @@ function handleTreeData(menus: Array<MenuItem>, role: string) {
   })
 }
 
+// 弹出框
+const dialogVisible = ref(false)
 const handleEdit = (select: any) => {
   dialogVisible.value = true
-  selectItem = select
+  currentSelect.item = select
 
   defaultChecks.value = []
   treeList.value = handleTreeData(menuList, select?.role)
@@ -124,8 +131,19 @@ const handleEdit = (select: any) => {
 const handleClose = function () {
   dialogVisible.value = false
 }
-
+// 修改菜单
 function changeTreeCheck() {
 
 }
 </script>
+
+<style lang="scss">
+.edit-dialog {
+  .select-role {
+    margin-top: 0;
+    &__text {
+      color: var(--color-primary);
+    }
+  }
+}
+</style>

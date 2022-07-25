@@ -38,7 +38,9 @@
   <section class="user-content">
     <div class="user-content__title">
       <h4>{{ $t('manage.userManage') }}</h4>
-      <el-button type="primary">{{ $t('manage.addUser') }}</el-button>
+      <el-button type="primary" @click="openAddUser">
+        {{ $t('manage.addUser') }}
+      </el-button>
     </div>
     <!-- 表格 -->
     <el-table
@@ -97,12 +99,54 @@
       />
     </div>
   </section>
+
+  <!-- 添加用户 -->
+  <el-dialog
+    v-model="dialogVisible"
+    :title="$t('manage.addUser')"
+    width="42%"
+    :before-close="handleDialogClose"
+  >
+    <el-form
+      ref="addUserFormRef"
+      label-width="120"
+      :model="addUserForm"
+      :rules="rules"
+      label-position="right"
+    >
+      <el-form-item :label="$t('manage.userName')" prop="username">
+        <el-input v-model="addUserForm.username" />
+      </el-form-item>
+      <el-form-item :label="$t('manage.permission')" prop="role">
+        <el-radio-group v-model="addUserForm.role">
+          <el-radio
+            v-for="r in roleOptions"
+            :key="'raido_' + r"
+            :label="r"
+          ></el-radio>
+        </el-radio-group>
+      </el-form-item>
+    </el-form>
+
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="handleDialogClose">
+          {{ $t('cancel') }}
+        </el-button>
+        <el-button type="primary" @click="handleDialogClose">
+          {{ $t('confirm') }}
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { getUserListApi } from '@/api/mange'
-import { UserInfo } from '../src/model/userModel'
+import { UserInfo } from '.@/model/userModel'
 
 let searchName = ref(''),
   selectRole = ref('')
@@ -152,9 +196,43 @@ const changePage = function (page: number) {
   userParams.page = page
   getUserList(userParams)
 }
+// 操作按钮
 const handleDelete = function () {}
 const handleEdit = function () {}
 const handleSelectionChange = function () {}
+
+// 添加用户弹出框
+const addUserFormRef = ref<FormInstance>()
+const dialogVisible = ref(false)
+const addUserForm = reactive({
+  username: '',
+  role: '',
+})
+
+const rules = reactive<FormRules>({
+  username: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      trigger: 'blur',
+    },
+  ],
+  role: [
+    {
+      required: true,
+      message: '权限不能为空',
+      trigger: 'change',
+    },
+  ],
+})
+const openAddUser = (select: any) => {
+  dialogVisible.value = true
+  addUserForm.username = ''
+  addUserForm.role = ''
+}
+const handleDialogClose = function () {
+  dialogVisible.value = false
+}
 </script>
 
 <style lang="scss" scoped>
