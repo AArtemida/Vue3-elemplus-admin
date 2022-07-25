@@ -8,6 +8,7 @@
 <template>
   <div class="login-content">
     <div class="login-form">
+      <h2 class="login-form__title">后台管理系统</h2>
       <el-form
         ref="loginFormRef"
         label-width="0"
@@ -128,7 +129,7 @@ clear()
 
 <style lang="scss" scoped>
 .login-content {
-  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  background-image: linear-gradient(180deg, #eebed5 0%, #7154bc 100%);
   height: 100vh;
   width: 100vw;
 }
@@ -158,9 +159,15 @@ clear()
   :deep(.login-btn) {
     margin-top: 20px;
     font-size: 15px;
+    background: var(--color-white);
+    color: var(--color-primary)
   }
   .el-form-item {
     margin-bottom: 40px;
+  }
+  &__title {
+    margin-bottom: 30px;
+    color: var(--color-white)
   }
 }
 </style>

@@ -41,8 +41,29 @@
   "vite": {
     "optimizeDeps": {
       "include": [
+        "vue",
         "element-plus/lib/locale/lang/en",
-        "element-plus/lib/locale/lang/zh-cn"
+        "element-plus/lib/locale/lang/zh-cn",
+        "pinia",
+        "axios",
+        "vue-router",
+        "element-plus/es",
+        "element-plus/es/components/form/style/index",
+        "element-plus/es/components/checkbox/style/index",
+        "element-plus/es/components/checkbox-group/style/index",
+        "element-plus/es/components/form-item/style/index",
+        "element-plus/es/components/select/style/index",
+        "element-plus/es/components/input/style/index",
+        "element-plus/es/components/tag/style/index",
+        "element-plus/es/components/pagination/style/index",
+        "element-plus/es/components/table/style/index",
+        "element-plus/es/components/table-column/style/index",
+        "element-plus/es/components/card/style/index",
+        "element-plus/es/components/button/style/index",
+        "element-plus/es/components/menu/style/index",
+        "element-plus/es/components/sub-menu/style/index",
+        "element-plus/es/components/menu-item/style/index",
+        "element-plus/es/components/option/style/index"
       ]
     }
   }
