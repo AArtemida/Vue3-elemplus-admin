@@ -11,9 +11,9 @@ const menus: Array<MenuItem> = [
     path: '/dashboard',
     name: 'index',
     meta: {
-      title: '工作台',
+      title: 'menu.dashboard',
       icon: 'icon-gongzuotai',
-      permission: ['admin', 'user']
+      permission: ['admin', 'user'],
     },
     componentName: 'dashboard/index',
   },
@@ -21,9 +21,9 @@ const menus: Array<MenuItem> = [
     path: '/permission',
     name: 'permission',
     meta: {
-      title: '权限控制',
+      title: 'menu.permission',
       icon: 'icon-quanxian',
-      permission: ['admin', 'user']
+      permission: ['admin', 'user'],
     },
     componentName: 'permission/index',
     children: [
@@ -31,8 +31,8 @@ const menus: Array<MenuItem> = [
         path: '/permission/page',
         name: 'pagePermission',
         meta: {
-          title: '页面权限',
-          permission: ['admin', 'user']
+          title: 'permission.page',
+          permission: ['admin', 'user'],
         },
         componentName: 'permission/Page',
       },
@@ -40,8 +40,8 @@ const menus: Array<MenuItem> = [
         path: '/permission/button',
         name: 'buttonPermission',
         meta: {
-          title: '按钮权限',
-          permission: ['admin', 'user']
+          title: 'permission.button',
+          permission: ['admin', 'user'],
         },
         componentName: 'permission/Button',
       },
@@ -51,9 +51,9 @@ const menus: Array<MenuItem> = [
     path: '/list',
     name: 'list',
     meta: {
-      title: '列表',
+      title: 'menu.list',
       icon: 'icon-caidan',
-      permission: ['admin', 'user']
+      permission: ['admin', 'user'],
     },
     componentName: 'list/index',
   },
@@ -61,9 +61,9 @@ const menus: Array<MenuItem> = [
     path: '/manage',
     name: 'manage',
     meta: {
-      title: '用户管理',
+      title: 'menu.manage',
       icon: 'icon-jiaosequanxian',
-      permission: ['admin']
+      permission: ['admin'],
     },
     componentName: 'manage/index',
     children: [
@@ -71,8 +71,8 @@ const menus: Array<MenuItem> = [
         path: '/manage/role',
         name: 'roleManage',
         meta: {
-          title: '角色管理',
-          permission: ['admin']
+          title: 'manage.roleManage',
+          permission: ['admin'],
         },
         componentName: 'manage/Role',
       },
@@ -80,8 +80,8 @@ const menus: Array<MenuItem> = [
         path: '/manage/user',
         name: 'userManage',
         meta: {
-          title: '用户管理',
-          permission: ['admin']
+          title: 'manage.userManage',
+          permission: ['admin'],
         },
         componentName: 'manage/User',
       },
@@ -91,9 +91,9 @@ const menus: Array<MenuItem> = [
     path: '/theme',
     name: 'theme',
     meta: {
-      title: '主题',
+      title: 'menu.theme',
       icon: 'icon-zhuti',
-      permission: ['admin', 'user']
+      permission: ['admin', 'user'],
     },
     componentName: 'theme/index',
   },
@@ -101,9 +101,9 @@ const menus: Array<MenuItem> = [
     path: '/errorPage',
     name: 'errorPage',
     meta: {
-      title: '错误页',
+      title: 'menu.errorPage',
       icon: 'icon-icon-test',
-      permission: ['admin', 'user']
+      permission: ['admin', 'user'],
     },
     componentName: 'errorPage/index',
   },

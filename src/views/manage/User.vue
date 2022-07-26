@@ -47,6 +47,7 @@
       :data="tableData.list"
       stripe
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />

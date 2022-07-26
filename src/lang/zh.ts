@@ -51,6 +51,11 @@ export default {
     switch: '切换权限',
     page: '页面权限',
     button: '按钮权限',
+    menuTip: '点击切换后请查看菜单变化',
+    buttonTip: '点击切换后请查看按钮变化',
+    buttonWithAdmin: '仅admin可见的按钮',
+    buttonWithUser: '仅User可见的按钮',
+    commonButton: '普通按钮'
   },
 
   manage: {

@@ -10,7 +10,7 @@
     <Side />
     <el-container direction="vertical">
       <Header />
-      <!-- <TabViews v-if="needTagsView" /> -->
+      <TabViews v-if="needTagsView" />
       <el-main>
         <router-view :key="$route.fullPath"></router-view>
       </el-main>
@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import Side from './components/Side.vue'
 import Header from './components/Header.vue'
-// import TabViews from './components/TabViews.vue'
+import TabViews from './components/TabViews.vue'
 
 const needTagsView = true
 </script>

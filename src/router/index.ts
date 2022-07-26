@@ -10,6 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { generateRouter } from '@/router/generateRouter'
 
+
 // 公用路由
 const publicRoutes: Array<RouteRecordRaw> = [
   // {
@@ -34,8 +35,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'index',
         meta: {
-          title: '工作台',
+          title: 'menu.dashboard',
           icon: 'icon-gongzuotai',
+          affix: true,
         },
         component: () => import('@/views/dashboard/index.vue'),
       },
@@ -43,8 +45,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
         path: '/dashboard',
         name: 'index',
         meta: {
-          title: '工作台',
+          title: 'menu.dashboard',
           icon: 'icon-gongzuotai',
+          affix: true,
         },
         component: () => import('@/views/dashboard/index.vue'),
       },
@@ -67,8 +70,8 @@ const router = createRouter({
 // 路由拦截
 let registerRouteFresh = true
 router.beforeEach((to, from, next) => {
-  let title: any = to.meta.title ? to.meta.title : 'project'
-  window.document.title = title
+  // let title: any = to.meta.title ? to.meta.title : 'project'
+  // window.document.title = title
 
   // 登录权限
   const userSession = sessionStorage.getItem('storeUser')

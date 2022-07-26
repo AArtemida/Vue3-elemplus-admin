@@ -7,23 +7,21 @@
 -->
 <template>
   <div class="tab-view-box">
-    <router-link
+    <span
       v-for="tag in visitedViews"
       ref="tag"
       :key="tag.path"
       :class="isActive(tag) ? 'active' : ''"
-      :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-      tag="span"
       class="tag-view-item"
-      @click="!isAffix(tag) ? closeSelectedTag(tag) : ''"
+      @click="!isAffix(tag) ? changeSelectedTag(tag) : ''"
     >
-      {{ tag.title }}
+      {{ $t(tag.title) }}
       <i
         class="iconfont icon-cuowu"
         v-if="!isAffix(tag)"
         @click.stop="closeSelectedTag(tag)"
       ></i>
-    </router-link>
+    </span>
   </div>
 </template>
 
@@ -39,10 +37,12 @@ let selectedTag = reactive(route)
 const tabStore = useTabViewStore()
 const { visitedViews } = storeToRefs(tabStore)
 
+// 是否固定
 function isAffix(tag: RouteRecordRaw) {
   return tag.meta && tag.meta.affix
 }
 
+// 是否当前选中
 function isActive(tag: RouteRecordRaw) {
   return tag.path === route.path
 }
@@ -50,6 +50,11 @@ function isActive(tag: RouteRecordRaw) {
 // 右键菜单
 function openMenu(tag: any) {
   selectedTag = tag
+}
+
+// 改变选中项
+function changeSelectedTag(tag: RouteRecordRaw) {
+  router.push({ name: tag.name })
 }
 
 // 选中最后
@@ -82,8 +87,8 @@ addTags()
 /* 路由 */
 watch(
   () => route.path,
-  n => {
-    console.log('路由变化')
+  () => {
+    // console.log('路由变化', route)
     addTags()
   }
 )
@@ -102,6 +107,7 @@ watch(
     font-size: 12px;
     position: relative;
     margin-right: 10px;
+    cursor: pointer;
     .iconfont {
       font-size: 12px;
       color: var(--color-primary);

@@ -20,7 +20,7 @@
   <el-alert
     title=""
     type="warning"
-    description="点击切换后请查看菜单变化"
+    :description="$t('permission.menuTip')"
     show-icon
   />
 </template>

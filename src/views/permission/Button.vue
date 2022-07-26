@@ -8,7 +8,7 @@
 <template>
   <h4>{{ $t('permission.button') }}</h4>
   <p class="switch-box">
-    {{ $t('permission.switch') }} :
+    {{ $t('permission.switch') }} : 
     <el-radio-group v-model="currentRole" @change="changeRole">
       <el-radio-button
         v-for="role in roles"
@@ -20,14 +20,14 @@
   <el-alert
     title=""
     type="warning"
-    description="点击切换后请查看按钮变化"
+    :description="$t('permission.buttonTip')"
     show-icon
   />
 
   <div class="btns">
-    <el-button type="primary" v-permission="['admin']">仅admin可见的按钮</el-button>
-    <el-button >普通按钮</el-button>
-    <el-button type="info" v-permission="['user']">仅user可见的按钮</el-button>
+    <el-button type="primary" v-permission="['admin']">{{ $t('permission.buttonWithAdmin') }}</el-button>
+    <el-button >{{ $t('permission.commonButton') }}</el-button>
+    <el-button type="info" v-permission="['user']">{{ $t('permission.buttonWithUser') }}</el-button>
   </div>
 </template>
 

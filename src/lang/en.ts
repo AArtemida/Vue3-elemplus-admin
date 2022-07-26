@@ -51,6 +51,11 @@ export default {
     switch: 'Switch permissions',
     page: 'Page permissions',
     button: 'Button permissions',
+    menuTip: 'Please check the menu changes after clicking switch',
+    buttonTip: 'Please check the button changes after clicking the switch',
+    buttonWithAdmin: 'Buttons visible only to admin',
+    buttonWithUser: 'Buttons visible only to user',
+    commonButton: 'Common button',
   },
 
   manage: {

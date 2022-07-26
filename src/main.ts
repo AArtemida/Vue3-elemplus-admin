@@ -9,11 +9,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { setupStore } from "./store/index"
 
-import router from './router'
-
 import ElementPlus from 'element-plus'
 import { installI18n } from '@/lang/index'
 import { useLocaleStore } from '@/store/modules/locale'
+
+import router from './router'
+
 import { setupGlobDirectives } from '@/directives'
 
 import '@/styles/common.scss'

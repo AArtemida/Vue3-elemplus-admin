@@ -108,7 +108,7 @@ let treeList : any = ref([])
 function handleTreeData(menus: Array<MenuItem>, role: string) {
   return menus.map((menu: MenuItem) => {
     let newItem: any = {
-      label: menu.meta?.title,
+      label: i18n.t(menu.meta?.title),
     }
     if (menu.children) newItem.children = handleTreeData(menu.children, role)
 
