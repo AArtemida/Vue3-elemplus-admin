@@ -10,6 +10,19 @@
 - [x] 采用`Mock`数据
 - [x] 包含权限控制
 
+## 内容展示
+### 登录
+![login](./img/login.gif)
+
+### 切换语言
+![login](./img/language.gif)
+
+### 切换主题
+![login](./img/theme.gif)
+
+### 切换权限
+![login](./img/button.gif)
+
 ## 需要优化项
 - 首次启动渲染很慢
 
